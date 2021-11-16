@@ -1,0 +1,33 @@
+Auction created.  Refer to it as auction 1
+Auction created.  Refer to it as auction 2
+Returned boolean value: true
+Returned boolean value: true
+Bidder returned with id 1 created.  Refer to it as bidder 1
+Bidder returned with id 2 created.  Refer to it as bidder 2
+bid outcome 1
+bid outcome 3
+bid outcome 3
+bid outcome 1
+bid outcome 3
+Returned boolean value: true
+Returned boolean value: true
+Returned string:
+1	0	0
+2	0	0
+3	20	2
+4	15	2
+5	0	0
+6	0	0
+7	0	0
+8	0	0
+9	0	0
+10	0	0
+
+Returned string:
+11	0	0
+12	0	0
+13	0	0
+14	0	0
+15	10	2
+
+quit

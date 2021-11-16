@@ -1,0 +1,42 @@
+1. Support regions
+    + auction regions
+		+ bidder regions
+		+ bidder openAuctions() method returns list of open auctions in same
+		region as bidder
+		+ bidders can only bid on auctions in the same region or with no
+		region
+
+2. Different lot types
+    + lots are initially created with auctions as regular lots
+		+ change to reserve lot
+		+ change to dualmin lot
+		+ change to regular lot
+		+ cannot change after a bid is made on a lot
+
+3. Defensive programming
+    + verify bidderID in placeBid
+		+ enforce minimum bid increment in placeBid
+		+ use exceptions rather than return codes in placeBid, bidder and
+		auction constructors
+		+ eliminate auctionIsReady and bidderIsReady
+
+4. Add Unit tests for any new classes and methods
+
+Bonus:  
+    Learn about Factory pattern
+    Implement factory pattern for lots
+
+Add a factory
+    + Builds lots given the input
+    + Allows easy addition of new lots
+		+ Separate lot and factory classes
+
+Extensions designed 10% (UML diagram)
+Extensions implemented 20%
+Extensions tested 20%
+Refactorings described (4) 10%
+Refactorings implemented (2) 10%
+Code Clarity 10%
+Document Clarity 10%
+Factory 10% Bonus
+

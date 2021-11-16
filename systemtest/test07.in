@@ -1,0 +1,50 @@
+auction 1 5 5 CdnAuction Canada
+auction 10 13 10 IndiaAuction India
+auction 25 30 8 USAuction USA
+open 1
+open 2
+open 3
+lot 1 reserve 25
+lot 4 reserve 100
+lot 12 reserve 23
+lot 13 reserve 50
+lot 4 dualmin 15 1 10
+lot 11 dualmin 200 15 50
+lot 30 dualmin 20 5 15
+lot 11 regular
+lot 13 regular
+bidder Alice Canada
+bidder Bob USA
+bidder Claire
+bidder Dinesh India
+bidder Fran Canada
+bidder Glenda India
+bidder Harriet USA
+bid 2 1 10
+bid 10 1 10
+bid 25 1 10
+bid 2 4 20
+bid 10 4 20
+bid 25 4 20
+bid 2 2 30
+bid 10 2 30
+bid 25 2 30
+bid 2 3 40
+bid 10 3 40
+bid 25 3 40
+bid 4 5 1
+bid 4 1 15
+bid 4 5 16
+bid 4 3 25
+bid 11 6 10
+bid 1 1 24
+bid 1 5 25
+bid 1 1 26
+close 1
+close 2
+close 3
+winning 1
+winning 2
+winning 3
+quit
+

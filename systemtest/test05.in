@@ -1,0 +1,22 @@
+auction 1 7 2 auction
+lot 2 reserve 10
+lot 3 reserve 10
+lot 4 reserve 10
+lot 5 reserve 20
+lot 6 reserve 20
+lot 7 reserve 20
+open 1
+bidder Glenna
+bidder Henry
+bid 1 1 2
+bid 1 2 4
+bid 2 2 9
+bid 3 2 10
+bid 4 1 11
+bid 5 1 19
+bid 6 2 20
+bid 7 1 21
+close 1
+winning 1
+quit
+

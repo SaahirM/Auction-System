@@ -1,0 +1,17 @@
+auction 1 10 5 firstAuction Canada
+auction 11 15 10 secondAuction Canada
+open 1
+open 2
+bidder Glenda Bermuda
+bidder Henry Canada
+bid 3 1 10
+bid 4 2 15
+bid 3 2 20
+bid 12 1 100
+bid 15 2 10
+close 2
+close 1
+winning 1
+winning 2
+quit
+

@@ -1,0 +1,67 @@
+Auction created.  Refer to it as auction 1
+Auction created.  Refer to it as auction 2
+Auction created.  Refer to it as auction 3
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Bidder returned with id 1 created.  Refer to it as bidder 1
+Bidder returned with id 2 created.  Refer to it as bidder 2
+Bidder returned with id 3 created.  Refer to it as bidder 3
+Bidder returned with id 4 created.  Refer to it as bidder 4
+Bidder returned with id 5 created.  Refer to it as bidder 5
+Bidder returned with id 6 created.  Refer to it as bidder 6
+Bidder returned with id 7 created.  Refer to it as bidder 7
+bid outcome 3
+bid outcome 1
+bid outcome 1
+bid outcome 1
+bid outcome 3
+bid outcome 1
+bid outcome 1
+bid outcome 1
+bid outcome 3
+bid outcome 3
+bid outcome 3
+bid outcome 3
+bid outcome 3
+bid outcome 3
+bid outcome 2
+bid outcome 3
+bid outcome 3
+bid outcome 2
+bid outcome 3
+bid outcome 3
+Returned boolean value: true
+Returned boolean value: true
+Returned boolean value: true
+Returned string:
+1	26	1
+2	40	3
+3	0	0
+4	25	3
+5	0	0
+
+Returned string:
+10	40	3
+11	10	6
+12	0	0
+13	0	0
+
+Returned string:
+25	40	3
+26	0	0
+27	0	0
+28	0	0
+29	0	0
+30	0	0
+
+quit

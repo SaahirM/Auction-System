@@ -1,0 +1,8 @@
+00 A basic auction flow with one auction, one bidder, and the auction opens and closes.  Check who won each lot.
+01 Have mutliple bidders(3) bidding on mulitple auctions (2).  See how much each bidder owes at the end.
+02 Try to create two auctions whose lot numbers overlap.  Expect the second auction's creation to fail.
+03 Create multiple auctions (4) with multiple bidders (3), leave auctions in different states
+04 two auctions from one region, two bidders from different regions (one same, one different) attempt to bid
+05 auction with regular and two reserve lots with different reserves.  Two bidders - one wins a regular lot but is below both reserves, other sins a different regular lot and is above one reserve but below the other
+06 auction with regular and two dualmin lots with different incrementLimits. Two bidders bid up the same on both, winning different auctions because of the change at incrementLimits.
+07 multiple auctions with multiple bidders, different regions, and different lot types

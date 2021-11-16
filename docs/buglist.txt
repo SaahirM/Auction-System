@@ -1,0 +1,92 @@
+Bug Report
+==========
+
+
+For each fixed bug , please provide the following information:
+  - Class name
+  - Method name
+  - Line number
+	- Cause of bug
+  - Bug fix (or reason bug is not easily fixed)
+
+
+BUGS FOUND AND FIXED BY UNIT TEST (should be 4-5):
+
+Bug 0:
+  Class: Bidder.java
+	Method: attribute initialization
+	Line: 12
+	Cause: incorrect initialization of bidderReady that assumed the creation of the bidder succeeded
+	Fix:  default bidderReady value to false
+
+Bug 1:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+Bug 2:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+Bug 3:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+Bug 4:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+
+
+BUGS FOUND AND FIXED USING EXPECTED INPUT (should be 4-5):
+
+Bug 5:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Fix:
+
+Bug 6:
+  Class:
+	Method:
+	Line:
+	Cause:
+
+Bug 7:
+  Class:
+	Method:
+	Line:
+	Cause:
+
+Bug 8:
+  Class:
+	Method:
+	Line:
+	Cause:
+
+Bug 9:
+  Class:
+	Method:
+	Line:
+	Cause:
+
+(OPTIONAL IF NEEDED) BUGS FOUND BUT NOT FIXED:
+
+Bug 10:
+  Class:
+	Method:
+	Line:
+	Cause:
+	Reason not fixed:

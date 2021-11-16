@@ -1,0 +1,42 @@
+auction 1 10 20 mixedAuction
+lot 5 dualmin 10 1 5
+lot 6 dualmin 10 5 10
+lot 7 dualmin 15 1 5
+open 1
+bidder Fran
+bidder Langdon
+bidder Emma
+bid 1 1 19
+bid 2 2 25
+bid 3 2 20
+bid 3 1 39
+bid 4 2 20
+bid 4 2 40
+bid 5 2 1
+bid 5 1 9
+bid 5 2 10
+bid 5 3 11
+bid 5 1 14
+bid 5 1 15
+bid 5 3 19
+bid 5 1 20
+bid 6 2 1
+bid 6 1 9
+bid 6 2 10
+bid 6 3 11
+bid 6 2 14
+bid 6 1 15
+bid 6 3 19
+bid 6 1 20
+bid 7 2 1
+bid 7 1 9
+bid 7 2 10
+bid 7 3 11
+bid 7 1 14
+bid 7 1 15
+bid 7 3 19
+bid 7 1 20
+close 1
+winning 1
+quit
+
