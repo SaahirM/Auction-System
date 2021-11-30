@@ -1,0 +1,11 @@
+Class-Implementation & Class-Interface Refactoring
+
+- Pull creation-of-lots process from Auction to OnlineAuctionSystem
+- Push validation of lot numbers (no overlap) from OnlineAuctionSystem to Lotfactory
+- ? Why bidder have all lots? Other way to calculate
+-
+
+Recommended Refactoring
+
+-
+-
