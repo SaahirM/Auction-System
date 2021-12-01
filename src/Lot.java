@@ -54,8 +54,6 @@ public class Lot {
         // Make sure the bidder is valid
         boolean validBidder = allBidders.get(bidderId) != null;
 
-        // Proceed with the bid
-
         if (theAuction.auctionIsOpen() && validBidder) {
             outcome = BidNotAcceptable;
             if (bid > 0) {
