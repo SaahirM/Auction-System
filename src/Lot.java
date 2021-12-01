@@ -69,11 +69,7 @@ public class Lot {
                 } else {
 
                     // An acceptable bid must exceed the current bid by the minimum increment or more.
-
-                    // TO DO: Add code to manage the minimum increment rather than just a bigger bid
-
-                    if (bid > topBid) {
-                        // It could be the winning bid.  Let's see if it beats any reserve.
+                    if (bid >= topBid + theAuction.getMinIncrement()) {
 
                         outcome = BidWinning;
                         winningBidder = bidderId;
