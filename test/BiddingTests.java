@@ -9,11 +9,11 @@ class BiddingTests {
     @Test
     void NoPriorNoReserveMinBidWins() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction( lots, bidders,"testAuction", 10, 15, 1);
         Bidder newBidder = new Bidder( lots,"person1", 1);
-        bidders.add( newBidder );
+        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -25,11 +25,11 @@ class BiddingTests {
     @Test
     void NoPriorBelowMinBid() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
         Bidder newBidder = new Bidder( lots,"person1", 1);
-        bidders.add( newBidder );
+        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -44,11 +44,11 @@ class BiddingTests {
     void NoPriorOverbidWins() {
 
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 1);
         Bidder newBidder = new Bidder( lots,"person1", 1);
-        bidders.add( newBidder );
+        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -64,16 +64,16 @@ class BiddingTests {
     void PriorBidBelowCurrentBid() {
 
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction( lots, bidders,"testAuction", 10, 15, 5);
         Bidder oldBidder = new Bidder( lots,"person1", 1);
         Bidder middleBidder = new Bidder(lots, "person2", 2);
         Bidder newBidder = new Bidder(lots, "person3", 3);
 
-        bidders.add( oldBidder );
-        bidders.add( middleBidder );
-        bidders.add( newBidder );
+        bidders.put(1, oldBidder);
+        bidders.put(2, middleBidder);
+        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -94,16 +94,16 @@ class BiddingTests {
     void PriorBidBeatMaxBid() {
 
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
         Bidder oldBidder = new Bidder(lots, "person1", 1);
         Bidder middleBidder = new Bidder(lots, "person2", 2);
         Bidder newBidder = new Bidder(lots, "person3", 3);
 
-        bidders.add( oldBidder );
-        bidders.add( middleBidder );
-        bidders.add( newBidder );
+        bidders.put(1, oldBidder);
+        bidders.put(2, middleBidder);
+        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -130,16 +130,16 @@ class BiddingTests {
     void PriorBidBelowMin() {
 
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
         Bidder oldBidder = new Bidder(lots, "person1", 1);
         Bidder middleBidder = new Bidder(lots, "person2", 2);
         Bidder newBidder = new Bidder(lots, "person3", 3);
 
-        bidders.add( oldBidder );
-        bidders.add( middleBidder );
-        bidders.add( newBidder );
+        bidders.put(1, oldBidder);
+        bidders.put(2, middleBidder);
+        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -160,7 +160,7 @@ class BiddingTests {
     @Test
     void bidTest() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
 
         Auction auction1 = new Auction(lots, bidders, "theAuction", 1, 10, 5);
@@ -170,7 +170,7 @@ class BiddingTests {
 
         Bidder bidder1 = new Bidder(lots, "newBidder", 1);
         assertTrue(bidder1.bidderIsReady());
-        bidders.add( bidder1 );
+        bidders.put(1, bidder1);
 
         Lot lot1 = lots.get( 1 );
         Lot lot2 = lots.get( 2 );

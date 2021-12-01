@@ -11,7 +11,7 @@ class InputValidation {
     @Test
     void createAuction() {
 
-        ArrayList<Bidder> bidderList = null;
+        HashMap<Integer, Bidder> bidderList = null;
         HashMap<Integer, Lot> lotList = null;
 
         Auction test1 = new Auction( lotList, bidderList, null,10, 15, 1);
@@ -52,7 +52,7 @@ class InputValidation {
 
     @Test
     void placeBid() {
-        ArrayList<Bidder> bidderList = new ArrayList<>();
+        HashMap<Integer, Bidder> bidderList = new HashMap<>();
         HashMap<Integer, Lot> lotList = new HashMap<>();
 
         // Load a basic auction to ensure the failure isn't from having no auction data
@@ -61,7 +61,7 @@ class InputValidation {
         Auction auction2 = new Auction( lotList, bidderList, "second", 4, 7, 20 );
 
         Bidder bidder1 = new Bidder( lotList, "Alice ", 1 );
-        bidderList.add( bidder1);
+        bidderList.put(1, bidder1);
 
         // Make bids with bad parameters.  Only one parameter is bad at a time.
 

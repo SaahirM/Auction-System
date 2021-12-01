@@ -5,14 +5,14 @@ import java.util.Iterator;
 public class OnlineAuctionSystem {
     // The state of all the context for the auction system
     private ArrayList<Auction> auctions = null;  // all the auctions
-    private ArrayList<Bidder> bidders = null;    // all the bidders
+    private HashMap<Integer, Bidder> bidders = null;    // all the bidders
     private HashMap<Integer, Lot> lots = null;  // all the lots among the auctions
 
     public OnlineAuctionSystem( ) {
         // Create places to store all fo the auctions, all of the bidders, and all of the auction lots.
 
         auctions = new ArrayList<Auction>();
-        bidders = new ArrayList<Bidder>();
+        bidders = new HashMap<Integer, Bidder>();
         lots = new HashMap<Integer, Lot>();
     }
 
@@ -49,17 +49,18 @@ public class OnlineAuctionSystem {
 
     public Bidder createBidder( String bidderName ) {
         Bidder theBidder = null;
+        int id = 1 + bidders.size();
 
         // Create the bidder
-        theBidder = new Bidder( lots, bidderName, 1+bidders.size());
+        theBidder = new Bidder( lots, bidderName, id);
         if (theBidder.bidderIsReady()) {
             // Make sure we have space to store the bidder information
 
             if (bidders == null) {
-                bidders = new ArrayList<>();
+                bidders = new HashMap<>();
             }
 
-            bidders.add(theBidder);
+            bidders.put(id, theBidder);
         } else {
             theBidder = null;
         }
@@ -113,16 +114,15 @@ public class OnlineAuctionSystem {
     }
 
     public String feesOwed( ) {
-        String owed = "";
+        StringBuilder owed = new StringBuilder();
         Bidder person = null;
 
 	    // Each bidder knows what they owe, so gather the status from them directly
-
-        for (Iterator<Bidder> iterate = bidders.iterator(); iterate.hasNext(); ) {
-            person = iterate.next();
-            owed += person.feesOwed();
+        for (int i = 0; i < bidders.size(); i++) {
+            Bidder bidder = bidders.get(i);
+            owed.append(bidder.feesOwed());
         }
 
-        return owed;
+        return owed.toString();
     }
 }

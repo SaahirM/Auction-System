@@ -8,7 +8,7 @@ class DataFlowTests {
     @Test
     void createAuctionTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1 );
         Bidder theBidder = new Bidder(lots, "someone", 1 );
@@ -16,7 +16,7 @@ class DataFlowTests {
         assertTrue( theAuction.auctionIsReady() );
         assertTrue( theBidder.bidderIsReady() );
 
-        bidders.add( theBidder);
+        bidders.put(1, theBidder);
 
         // Try to bid on a new auction.  Should fail.
 
@@ -40,7 +40,7 @@ class DataFlowTests {
     @Test
     void openAndCloseTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1 );
 

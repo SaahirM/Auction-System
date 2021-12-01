@@ -10,7 +10,7 @@ class ControlFlowTests {
     @Test
     void createAuctionTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction auction1 = new Auction( lots, bidders, "First", 2, 3, 1 );
         Auction auction2 = new Auction( lots, bidders, "Second", 4, 5, 1 );
@@ -24,7 +24,7 @@ class ControlFlowTests {
     @Test
     void createBidderTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Bidder bidder1 = new Bidder( lots, "Alice", 1 );
         Bidder bidder2 = new Bidder( lots, "Bob", 2 );
@@ -38,7 +38,7 @@ class ControlFlowTests {
     @Test
     void auctionStatusTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction auction1 = new Auction( lots, bidders, "First", 2, 3, 1 );
         Auction auction2 = new Auction( lots, bidders, "Second", 4, 5, 1 );
@@ -54,7 +54,7 @@ class ControlFlowTests {
     @Test
     void placeBidBadBidderTests() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction auction1 = new Auction( lots, bidders, "FirstAuction", 2, 6, 1 );
         auction1.openAuction();
 
@@ -71,14 +71,14 @@ class ControlFlowTests {
         // Make a bid with a bad bidder number when there is one bidder
 
         Bidder bidder1 = new Bidder( lots, "Alice", 1 );
-        bidders.add( bidder1 );
+        bidders.put(1, bidder1);
 
         assertEquals( 0, lot4.placeBid( 5, 3 ));
 
         // Make a bid with a bad bidder number when there is more than one bidder
 
         Bidder bidder2 = new Bidder( lots, "Bob", 2 );
-        bidders.add( bidder2) ;
+        bidders.put(2, bidder2) ;
 
         assertEquals( 0, lot5.placeBid( 5, 7 ));
 
@@ -90,7 +90,7 @@ class ControlFlowTests {
     @Test
     void winningBids() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction theAuction = new Auction( lots, bidders, "FirstAuction", 10, 15, 2 );
         assertNotNull( theAuction );
 
@@ -102,9 +102,9 @@ class ControlFlowTests {
         Bidder bidder2 = new Bidder( lots, "Bob", 2 );
         Bidder bidder3 = new Bidder( lots, "Charlie", 3 );
 
-        bidders.add( bidder1 );
-        bidders.add( bidder2 );
-        bidders.add( bidder3 );
+        bidders.put(1, bidder1);
+        bidders.put(2, bidder2);
+        bidders.put(3, bidder3);
 
         // Set up some bids on lots.  Leave lot 11 without a bid.
 
@@ -129,7 +129,7 @@ class ControlFlowTests {
     @Test
     void feesOwed() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         // Get a mix of auctions to receive bids
 
@@ -166,12 +166,12 @@ class ControlFlowTests {
         assertTrue( bidder5.bidderIsReady() );
         assertTrue( bidder6.bidderIsReady() );
 
-        bidders.add( bidder1 );
-        bidders.add( bidder2 );
-        bidders.add( bidder3 );
-        bidders.add( bidder4 );
-        bidders.add( bidder5 );
-        bidders.add( bidder6 );
+        bidders.put(1, bidder1);
+        bidders.put(2, bidder2);
+        bidders.put(3, bidder3);
+        bidders.put(4, bidder4);
+        bidders.put(5, bidder5);
+        bidders.put(6, bidder6);
 
         // Set the bids as we'll expect.  Auctions 2 and 3 will get closed.  Auction 5 is never opened.
 
@@ -226,7 +226,7 @@ class ControlFlowTests {
     @Test
     void lotState() {
         HashMap<Integer, Lot> lots = new HashMap<>();
-        ArrayList<Bidder> bidders = new ArrayList<>();
+        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         // Get a mix of auctions to receive bids
 

@@ -10,7 +10,7 @@ import java.util.HashMap;
 class BoundaryTests {
     @Test
     void createAuction() {
-        ArrayList<Bidder> bidderList = new ArrayList<>();
+        HashMap<Integer, Bidder> bidderList = new HashMap<>();
         HashMap<Integer, Lot> lotList = new HashMap<>();
 
         Auction auction1 = null;

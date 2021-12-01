@@ -18,13 +18,13 @@ public class Auction {
 
     // Context surrounding this auction
     private HashMap<Integer, Lot> lotSet = null;    // All the lots available
-    private ArrayList<Bidder> bidderSet = null;      // All the bidders in the system
+    private HashMap<Integer, Bidder> bidderSet = null;      // All the bidders in the system
 
     // Helper variables for the class
     private Map<Integer, String> naming = null;
     private boolean auctionReady = false;
 
-    public Auction( HashMap<Integer, Lot> auctionLots, ArrayList<Bidder> allBidders, String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement ) {
+    public Auction( HashMap<Integer, Lot> auctionLots, HashMap<Integer, Bidder> allBidders, String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement ) {
         if ((firstLotNumber > 0) && (firstLotNumber <= lastLotNumber) && (auctionName != null) && (auctionName.length() > 0) && (minBidIncrement > 0)) {
             this.auctionName = auctionName;
             this.lotStart = firstLotNumber;

@@ -17,12 +17,12 @@ public class Lot {
 
     // Context about the environment in which the lot belongs
     private Auction theAuction = null;      // The auction to which the lot belongs
-    private ArrayList<Bidder> allBidders = null; // The set of all bidders
+    private HashMap<Integer, Bidder> allBidders = null; // The set of all bidders
 
     // Helper arrays for the class
     private Map<Boolean, String> winString = null;
 
-    public Lot( Auction auction, ArrayList<Bidder> allBidders, int lotNumber ) {
+    public Lot( Auction auction, HashMap<Integer, Bidder> allBidders, int lotNumber ) {
         if ((lotNumber > 0) && (auction != null)) {
             //Cache the information for the lot.
             this.lotNumber = lotNumber;
@@ -52,12 +52,7 @@ public class Lot {
         int outcome = LotNotAccepting;
 
         // Make sure the bidder is valid
-
-        boolean validBidder = false;
-
-        // TO DO:  Verify that the bidder ID is ok.  Let the code through for now
-
-        validBidder = true;
+        boolean validBidder = allBidders.get(bidderId) != null;
 
         // Proceed with the bid
 
