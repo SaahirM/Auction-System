@@ -11,8 +11,8 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction( lots, bidders,"testAuction", 10, 15, 1);
-        Bidder newBidder = new Bidder( lots,"person1", 1);
+        Auction newAuction = new Auction( lots, bidders, "testAuction", 10, 15, 1, null );
+        Bidder newBidder = new Bidder( lots,"person1", 1, null);
         bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
@@ -27,8 +27,8 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
-        Bidder newBidder = new Bidder( lots,"person1", 1);
+        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5, null);
+        Bidder newBidder = new Bidder( lots,"person1", 1, null);
         bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
@@ -46,8 +46,8 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 1);
-        Bidder newBidder = new Bidder( lots,"person1", 1);
+        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 1, null);
+        Bidder newBidder = new Bidder( lots,"person1", 1, null);
         bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
@@ -66,10 +66,10 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction( lots, bidders,"testAuction", 10, 15, 5);
-        Bidder oldBidder = new Bidder( lots,"person1", 1);
-        Bidder middleBidder = new Bidder(lots, "person2", 2);
-        Bidder newBidder = new Bidder(lots, "person3", 3);
+        Auction newAuction = new Auction( lots, bidders,"testAuction", 10, 15, 5, null);
+        Bidder oldBidder = new Bidder( lots,"person1", 1, null);
+        Bidder middleBidder = new Bidder(lots, "person2", 2, null);
+        Bidder newBidder = new Bidder(lots, "person3", 3, null);
 
         bidders.put(1, oldBidder);
         bidders.put(2, middleBidder);
@@ -96,10 +96,10 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
-        Bidder oldBidder = new Bidder(lots, "person1", 1);
-        Bidder middleBidder = new Bidder(lots, "person2", 2);
-        Bidder newBidder = new Bidder(lots, "person3", 3);
+        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5, null);
+        Bidder oldBidder = new Bidder(lots, "person1", 1, null);
+        Bidder middleBidder = new Bidder(lots, "person2", 2, null);
+        Bidder newBidder = new Bidder(lots, "person3", 3, null);
 
         bidders.put(1, oldBidder);
         bidders.put(2, middleBidder);
@@ -132,10 +132,10 @@ class BiddingTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5);
-        Bidder oldBidder = new Bidder(lots, "person1", 1);
-        Bidder middleBidder = new Bidder(lots, "person2", 2);
-        Bidder newBidder = new Bidder(lots, "person3", 3);
+        Auction newAuction = new Auction(lots, bidders, "testAuction", 10, 15, 5, null);
+        Bidder oldBidder = new Bidder(lots, "person1", 1, null);
+        Bidder middleBidder = new Bidder(lots, "person2", 2, null);
+        Bidder newBidder = new Bidder(lots, "person3", 3, null);
 
         bidders.put(1, oldBidder);
         bidders.put(2, middleBidder);
@@ -163,12 +163,12 @@ class BiddingTests {
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
 
-        Auction auction1 = new Auction(lots, bidders, "theAuction", 1, 10, 5);
+        Auction auction1 = new Auction(lots, bidders, "theAuction", 1, 10, 5, null);
         assertTrue( auction1.auctionIsReady() );
 
         // Check with a bid on a single lot
 
-        Bidder bidder1 = new Bidder(lots, "newBidder", 1);
+        Bidder bidder1 = new Bidder(lots, "newBidder", 1, null);
         assertTrue(bidder1.bidderIsReady());
         bidders.put(1, bidder1);
 

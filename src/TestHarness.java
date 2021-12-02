@@ -95,9 +95,13 @@ public class TestHarness {
                     int firstLot = userInput.nextInt();
                     int lastLot = userInput.nextInt();
                     int minBid = userInput.nextInt();
-                    String name = getEndingString( userInput );
+                    String name = userInput.next();
+                    String region = getEndingString( userInput );
 
-                    Auction newAuction = auctionSystem.createAuction( name, firstLot, lastLot, minBid );
+                    if (region.equals("")) {
+                        region = null;
+                    }
+                    Auction newAuction = auctionSystem.createAuction( name, firstLot, lastLot, minBid, region );
                     if (newAuction == null) {
                         System.out.println("null returned for auction");
                     } else {
@@ -105,9 +109,13 @@ public class TestHarness {
                         definedAuctions.add( newAuction );
                     }
                 } else if (userCommand.equalsIgnoreCase(createBidderCommand)) {
-                    String name = getEndingString( userInput );
+                    String name = userInput.next();
+                    String region = getEndingString( userInput );
 
-                    Bidder newBidder = auctionSystem.createBidder( name );
+                    if (region.equals("")) {
+                        region = null;
+                    }
+                    Bidder newBidder = auctionSystem.createBidder( name, region );
                     if (newBidder == null) {
                         System.out.println("null returned for bidder");
                     } else {

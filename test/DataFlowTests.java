@@ -10,8 +10,8 @@ class DataFlowTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1 );
-        Bidder theBidder = new Bidder(lots, "someone", 1 );
+        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1, null );
+        Bidder theBidder = new Bidder(lots, "someone", 1, null );
 
         assertTrue( theAuction.auctionIsReady() );
         assertTrue( theBidder.bidderIsReady() );
@@ -42,7 +42,7 @@ class DataFlowTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1 );
+        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1, null );
 
         assertTrue( theAuction.auctionIsReady() );
 

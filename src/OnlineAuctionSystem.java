@@ -16,7 +16,7 @@ public class OnlineAuctionSystem {
         lots = new HashMap<Integer, Lot>();
     }
 
-    public Auction createAuction( String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement ) {
+    public Auction createAuction( String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement, String region ) {
         Auction theAuction = null;
 
         // Check that the lot ranges don't overlap.  If two ranges are distinct then one ends before the next one starts
@@ -36,7 +36,7 @@ public class OnlineAuctionSystem {
 
         if (distinctLotRange) {
             // Make the auction.
-            theAuction = new Auction(lots, bidders, auctionName, firstLotNumber, lastLotNumber, minBidIncrement);
+            theAuction = new Auction(lots, bidders, auctionName, firstLotNumber, lastLotNumber, minBidIncrement, region);
             if (theAuction.auctionIsReady()) {
                 auctions.add(theAuction);
             } else {
@@ -47,12 +47,12 @@ public class OnlineAuctionSystem {
         return theAuction;
     }
 
-    public Bidder createBidder( String bidderName ) {
+    public Bidder createBidder( String bidderName, String region ) {
         Bidder theBidder = null;
         int id = 1 + bidders.size();
 
         // Create the bidder
-        theBidder = new Bidder( lots, bidderName, id);
+        theBidder = new Bidder( lots, bidderName, id, region);
         if (theBidder.bidderIsReady()) {
             // Make sure we have space to store the bidder information
 
@@ -115,7 +115,6 @@ public class OnlineAuctionSystem {
 
     public String feesOwed( ) {
         StringBuilder owed = new StringBuilder();
-        Bidder person = null;
 
 	    // Each bidder knows what they owe, so gather the status from them directly
         for (int i = 0; i < bidders.size(); i++) {

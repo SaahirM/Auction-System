@@ -4,6 +4,7 @@ public class Bidder {
     // Context about this bidder
     private int bidderNumber = 0;
     private String bidderName = null;
+    private String bidderRegion;
 
     // Context that surrounds this bidder
     private Map<Integer, Lot> lotSet = null;
@@ -11,11 +12,12 @@ public class Bidder {
     // State of readiness of the class
     private boolean bidderReady = false;
 
-    public Bidder( Map<Integer, Lot> lots, String bidderName, int bidderId ) {
+    public Bidder( Map<Integer, Lot> lots, String bidderName, int bidderId, String region ) {
         if ((bidderId > 0) && (bidderName != null) && (bidderName.length() > 0)) {
             this.bidderNumber = bidderId;
             this.bidderName = bidderName;
             this.lotSet = lots;
+            this.bidderRegion = region;
             bidderReady = true;
         }
     }

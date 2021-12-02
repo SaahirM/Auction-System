@@ -19,20 +19,20 @@ class BoundaryTests {
         Auction auction4 = null;
 
         // Single letter auction name
-        auction1 = new Auction( lotList, bidderList,"a", 10, 15, 5);
+        auction1 = new Auction( lotList, bidderList,"a", 10, 15, 5, null);
         assertTrue( auction1.auctionIsReady() );
 
         // Longer auction names
         // Range of lots
-        auction2 = new Auction( lotList, bidderList,"test1", 1, 2, 5);
+        auction2 = new Auction( lotList, bidderList,"test1", 1, 2, 5, null);
         assertTrue( auction2.auctionIsReady() );
 
         // Single lot
-        auction3 = new Auction(lotList, bidderList, "test2", 3, 3, 5);
+        auction3 = new Auction(lotList, bidderList, "test2", 3, 3, 5, null);
         assertTrue( auction3.auctionIsReady() );
 
         // Minimum bid increment
-        auction4 = new Auction(lotList, bidderList,"test3", 5, 8, 1);
+        auction4 = new Auction(lotList, bidderList,"test3", 5, 8, 1, null);
         assertTrue( auction4.auctionIsReady() );
 
     }
@@ -42,7 +42,7 @@ class BoundaryTests {
         HashMap<Integer, Lot> lotList = new HashMap<>();
         Bidder bidder1 = null;
 
-        bidder1 = new Bidder(lotList, "z", 12 );
+        bidder1 = new Bidder(lotList, "z", 12, null );
         assertTrue( bidder1.bidderIsReady() );
     }
 

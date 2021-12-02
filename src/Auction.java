@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 
 public class Auction {
 
@@ -15,6 +14,7 @@ public class Auction {
     private int lotEnd = 0;
     private int minIncrement = 0;
     private int state = NewAuction;
+    private String region;
 
     // Context surrounding this auction
     private HashMap<Integer, Lot> lotSet = null;    // All the lots available
@@ -24,7 +24,7 @@ public class Auction {
     private Map<Integer, String> naming = null;
     private boolean auctionReady = false;
 
-    public Auction( HashMap<Integer, Lot> auctionLots, HashMap<Integer, Bidder> allBidders, String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement ) {
+    public Auction( HashMap<Integer, Lot> auctionLots, HashMap<Integer, Bidder> allBidders, String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement, String region ) {
         if ((firstLotNumber > 0) && (firstLotNumber <= lastLotNumber) && (auctionName != null) && (auctionName.length() > 0) && (minBidIncrement > 0)) {
             this.auctionName = auctionName;
             this.lotStart = firstLotNumber;
@@ -33,6 +33,7 @@ public class Auction {
             this.state = NewAuction;
             this.lotSet = auctionLots;
             this.bidderSet = allBidders;
+            this.region = region;
 
             naming = new HashMap<Integer, String>();
             naming.put( NewAuction, "new" );
@@ -138,5 +139,9 @@ public class Auction {
 
     public int getMaxLot() {
         return lotEnd;
+    }
+
+    public String getRegion() {
+        return this.region;
     }
 }

@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="" />
+    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/refactoring.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/refactoring.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Auction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bidder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bidder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestHarness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestHarness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemtest/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/BiddingTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BiddingTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/BoundaryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BoundaryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ControlFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ControlFlowTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/DataFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/DataFlowTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/InputValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/InputValidation.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +27,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -78,7 +99,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="JUnit.All in OnlineAuction">
+  <component name="RunManager" selected="Application.TestHarness">
     <configuration name="TestHarness" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TestHarness" />
       <module name="OnlineAuction" />
@@ -136,9 +157,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestHarness" />
         <item itemvalue="JUnit.All in OnlineAuction" />
         <item itemvalue="JUnit.BiddingTests.PriorBidBeatMaxBid" />
-        <item itemvalue="Application.TestHarness" />
       </list>
     </recent_temporary>
   </component>
@@ -164,6 +185,10 @@
       <workItem from="1637977762312" duration="215000" />
       <workItem from="1638206632623" duration="2266000" />
       <workItem from="1638228894738" duration="7305000" />
+      <workItem from="1638292039037" duration="40000" />
+      <workItem from="1638296541850" duration="114000" />
+      <workItem from="1638321473457" duration="4478000" />
+      <workItem from="1638406237088" duration="3427000" />
     </task>
     <servers />
   </component>
