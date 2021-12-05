@@ -45,13 +45,13 @@ public class LotFactory {
         return auctionLots;
     }
 
-    public void changeLotType(HashMap<Integer, Lot> allLots, int lotNum,
+    public void changeLotType(HashMap<Integer, Lot> auctionLots, int lotNum,
                               int newType, int[] args) throws LotInUseException {
-        if (allLots == null) {
+        if (auctionLots == null) {
             throw new NullPointerException("list of lots is null");
         } else if (lotNum <= 0) {
             throw new InputMismatchException("lot number is not positive");
-        } else if (allLots.get(lotNum).winningBidder() != 0) {
+        } else if (auctionLots.get(lotNum).winningBidder() != 0) {
             throw new LotInUseException("It's too late to change this lot type");
         }
 
@@ -72,8 +72,8 @@ public class LotFactory {
                 newLot = new DualMinLot(lotNum, args[0], args[1], args[2]);
             }
         }
+        auctionLots.put(lotNum, newLot);
         allLots.put(lotNum, newLot);
-        this.allLots.put(lotNum, newLot);
     }
 
     public HashMap<Integer, Lot> getAllLots() {

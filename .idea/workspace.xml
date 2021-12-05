@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="Pulled lot creation process from Auction to LotFactory">
+    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="implemented regions and functionality to change lot types">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/refactoring.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/refactoring.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bidder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bidder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Auction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DualMinLot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualMinLot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LotFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LotFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReserveLot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReserveLot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TestHarness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestHarness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/systemtest/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/systemtest/test02.gold" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test02.gold" afterDir="false" />
     </list>
@@ -111,7 +110,7 @@
       <recent name="C:\Users\saahi\Git-Dal\CSCI-2134\A_04\monowar\systemtest" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in OnlineAuction">
+  <component name="RunManager" selected="Application.TestHarness">
     <configuration name="TestHarness" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TestHarness" />
       <module name="OnlineAuction" />
@@ -193,8 +192,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in OnlineAuction" />
         <item itemvalue="Application.TestHarness" />
+        <item itemvalue="JUnit.All in OnlineAuction" />
         <item itemvalue="JUnit.ControlFlowTests.lotState" />
         <item itemvalue="JUnit.InputValidation.placeBid" />
         <item itemvalue="JUnit.BiddingTests.PriorBidBelowCurrentBid" />
@@ -228,7 +227,7 @@
       <workItem from="1638321473457" duration="4478000" />
       <workItem from="1638406237088" duration="3830000" />
       <workItem from="1638653269370" duration="18154000" />
-      <workItem from="1638736067531" duration="8969000" />
+      <workItem from="1638736067531" duration="11711000" />
     </task>
     <task id="LOCAL-00001" summary="changed Auction and Bidder constructors throughout project to include region">
       <created>1638410011107</created>
@@ -258,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638739515990</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="implemented regions and functionality to change lot types">
+      <created>1638745997975</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638745997975</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -336,7 +342,8 @@
     <MESSAGE value="Implemented LotFactory and Lot subclasses to be used later" />
     <MESSAGE value="Overhauled Lot class, pushing bidder ID verification from Lot.placeBid() to Bidder.placeBidOn(), making it so bids are done through Bidder.placeBidOn()." />
     <MESSAGE value="Pulled lot creation process from Auction to LotFactory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pulled lot creation process from Auction to LotFactory" />
+    <MESSAGE value="implemented regions and functionality to change lot types" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented regions and functionality to change lot types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -347,8 +354,8 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/TestHarness.java</url>
-          <line>134</line>
-          <option name="timeStamp" value="12" />
+          <line>213</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
