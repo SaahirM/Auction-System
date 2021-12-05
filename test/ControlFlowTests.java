@@ -52,42 +52,6 @@ class ControlFlowTests {
     }
 
     @Test
-    void placeBidBadBidderTests() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
-        Auction auction1 = new Auction( lots, bidders, "FirstAuction", 2, 6, 1, null );
-        auction1.openAuction();
-
-        // Make a bid when no bidders exist
-
-        Lot lot2 = lots.get( 2 );
-        Lot lot3 = lots.get( 3 );
-        Lot lot4 = lots.get( 4 );
-        Lot lot5 = lots.get( 5 );
-        Lot lot6 = lots.get( 6 );
-
-        assertEquals( 0, lot3.placeBid( 5, 1 ));
-
-        // Make a bid with a bad bidder number when there is one bidder
-
-        Bidder bidder1 = new Bidder( lots, "Alice", 1, null );
-        bidders.put(1, bidder1);
-
-        assertEquals( 0, lot4.placeBid( 5, 3 ));
-
-        // Make a bid with a bad bidder number when there is more than one bidder
-
-        Bidder bidder2 = new Bidder( lots, "Bob", 2, null );
-        bidders.put(2, bidder2) ;
-
-        assertEquals( 0, lot5.placeBid( 5, 7 ));
-
-        // Show that valid bids are still possible
-        assertEquals( 3, lot2.placeBid( 1, bidder1.getBidderId() ));
-        assertEquals( 3, lot6.placeBid( 1, bidder2.getBidderId() ));
-    }
-
-    @Test
     void winningBids() {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
@@ -112,13 +76,13 @@ class ControlFlowTests {
         Lot lot13 = lots.get( 13 );
         Lot lot14 = lots.get( 14 );
 
-        assertEquals( 3, lot12.placeBid( 2, bidder1.getBidderId() ));
+        assertEquals( 3, bidder1.placeBidOn(lot12, 2) );
 
-        assertEquals( 3, lot13.placeBid( 4, bidder2.getBidderId() ));
-        assertEquals( 3, lot13.placeBid( 6, bidder3.getBidderId() ));
+        assertEquals( 3, bidder2.placeBidOn(lot13, 4) );
+        assertEquals( 3, bidder3.placeBidOn(lot13, 6) );
 
-        assertEquals( 3, lot14.placeBid( 10, bidder2.getBidderId() ));
-        assertEquals( 2, lot14.placeBid( 6, bidder3.getBidderId() ));
+        assertEquals( 3, bidder2.placeBidOn(lot14, 10) );
+        assertEquals( 2, bidder3.placeBidOn(lot14, 6) );
 
         // Check out the outcomes
 
@@ -176,36 +140,36 @@ class ControlFlowTests {
         // Set the bids as we'll expect.  Auctions 2 and 3 will get closed.  Auction 5 is never opened.
 
         // Win 0 closed, 1 open
-        assertEquals( 3, lots.get( 15 ).placeBid( 2, bidder2.getBidderId() ));
+        assertEquals( 3,bidder2.placeBidOn(lots.get( 15 ), 2) );
 
         // Win 1 closed, 0 open
 
-        assertEquals( 3, lots.get( 24 ).placeBid( 2, bidder3.getBidderId()  ));
+        assertEquals( 3,bidder3.placeBidOn(lots.get( 24 ), 2) );
 
         // Win 1 closed, 1 open
 
-        assertEquals( 3, lots.get( 26 ).placeBid( 2, bidder4.getBidderId()  ));
-        assertEquals( 3, lots.get( 16 ).placeBid( 2, bidder4.getBidderId()  ));
+        assertEquals( 3,bidder4.placeBidOn(lots.get( 26 ), 2) );
+        assertEquals( 3,bidder4.placeBidOn(lots.get( 16 ), 2) );
 
         // Win many closed, 0 open
 
-        assertEquals( 3, lots.get( 30 ).placeBid( 2, bidder5.getBidderId()  ));
-        assertEquals( 3, lots.get( 31 ).placeBid( 2, bidder5.getBidderId()  ));
-        assertEquals( 3, lots.get( 32 ).placeBid( 2, bidder5.getBidderId()  ));
-        assertEquals( 3, lots.get( 33 ).placeBid( 2, bidder5.getBidderId()  ));
-        assertEquals( 3, lots.get( 34 ).placeBid( 2, bidder5.getBidderId()  ));
+        assertEquals( 3,bidder5.placeBidOn(lots.get( 30 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lots.get( 31 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lots.get( 32 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lots.get( 33 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lots.get( 34 ), 2) );
 
         // Win many closed, many open
 
-        assertEquals( 3, lots.get( 35 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 36 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 37 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 38 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 42 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 43 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 44 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 45 ).placeBid( 2, bidder6.getBidderId()  ));
-        assertEquals( 3, lots.get( 46 ).placeBid( 2, bidder6.getBidderId()  ));
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 35 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 36 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 37 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 38 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 42 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 43 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 44 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 45 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lots.get( 46 ), 2) );
 
         // Close off the relevant auctions
 

@@ -1,10 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+
+import java.util.*;
 
 class InputValidation {
 
@@ -64,11 +62,14 @@ class InputValidation {
         bidderList.put(1, bidder1);
 
         // Make bids with bad parameters.  Only one parameter is bad at a time.
-
-        assertEquals( 0, lotList.get(1).placeBid( -1, 100 ) );
-        assertEquals( 0, lotList.get(1).placeBid(  0, 100 ) );
-        assertEquals( 0, lotList.get(1).placeBid(  3, 100 ) );
-        assertEquals( 0, lotList.get(1).placeBid(  bidder1.getBidderId(), -1 ) );
-        assertEquals( 0, lotList.get(1).placeBid(  bidder1.getBidderId(), 0 ) );
+        try {
+            assertEquals(0, bidder1.placeBidOn(lotList.get(1), -1));
+        } catch (InputMismatchException e) {
+            assertEquals("Trying to bid non-positive amount: -1", e.getMessage());
+        }try {
+            assertEquals(0, bidder1.placeBidOn(lotList.get(1), 0));
+        } catch (InputMismatchException e) {
+            assertEquals("Trying to bid non-positive amount: 0", e.getMessage());
+        }
     }
 }

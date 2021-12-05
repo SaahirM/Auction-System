@@ -19,7 +19,7 @@ class BiddingTests {
 
         Lot aLot = lots.get( 10 );
 
-        assertEquals(3, aLot.placeBid( 1, newBidder.getBidderId() ));
+        assertEquals(3, newBidder.placeBidOn(aLot, 1));
     }
 
     @Test
@@ -34,7 +34,7 @@ class BiddingTests {
         assertTrue(newAuction.openAuction());
 
         Lot aLot = lots.get( 10 );
-        assertEquals(2, aLot.placeBid(1, newBidder.getBidderId() ));
+        assertEquals(2, newBidder.placeBidOn(aLot, 1));
 
         assertEquals("10\t0\t0\n11\t0\t0\n12\t0\t0\n13\t0\t0\n14\t0\t0\n15\t0\t0\n", newAuction.winningBids(), "Bid is below minimum bid");
 
@@ -53,7 +53,7 @@ class BiddingTests {
         assertTrue(newAuction.openAuction());
 
         Lot aLot = lots.get( 10 );
-        assertEquals(3, aLot.placeBid(100, newBidder.getBidderId() ));
+        assertEquals(3, newBidder.placeBidOn(aLot, 100));
 
         assertEquals("10\t100\t1\n11\t0\t0\n12\t0\t0\n13\t0\t0\n14\t0\t0\n15\t0\t0\n", newAuction.winningBids(), "No reserve bid, overbid wins");
 
@@ -80,12 +80,12 @@ class BiddingTests {
         Lot aLot = lots.get( 10 );
 
         // Get in a first bidder
-        assertEquals(3, aLot.placeBid(10, oldBidder.getBidderId() ));
+        assertEquals(3, oldBidder.placeBidOn(aLot, 10));
         // Bump up the current bid to the desired level
-        assertEquals(2, aLot.placeBid(10, middleBidder.getBidderId() ));
+        assertEquals(2, middleBidder.placeBidOn(aLot, 10));
 
         // Now bring in the test bidder
-        assertEquals(2, aLot.placeBid(5, newBidder.getBidderId() ));
+        assertEquals(2, newBidder.placeBidOn(aLot, 5));
 
         assertEquals("10\t10\t1\n11\t0\t0\n12\t0\t0\n13\t0\t0\n14\t0\t0\n15\t0\t0\n", newAuction.winningBids(), "No reserve bid, current bid not high enough to win");
     }
@@ -110,12 +110,12 @@ class BiddingTests {
         Lot aLot = lots.get( 10 );
 
         // Get in a first bidder
-        assertEquals(3, aLot.placeBid(10, oldBidder.getBidderId() ));
+        assertEquals(3, oldBidder.placeBidOn(aLot, 10));
         // Bump up the current bid to the desired level
-        assertEquals(2, aLot.placeBid(10, middleBidder.getBidderId() ));
+        assertEquals(2, middleBidder.placeBidOn(aLot, 10));
 
         // Now bring in the test bidder
-        assertEquals(3, aLot.placeBid(20, newBidder.getBidderId() ));
+        assertEquals(3, newBidder.placeBidOn(aLot, 20));
 
         assertEquals("10\t20\t3\n11\t0\t0\n12\t0\t0\n13\t0\t0\n14\t0\t0\n15\t0\t0\n", newAuction.winningBids());
 
@@ -146,12 +146,12 @@ class BiddingTests {
         Lot aLot = lots.get( 10 );
 
         // Get in a first bidder
-        assertEquals(3, aLot.placeBid(10, oldBidder.getBidderId() ));
+        assertEquals(3, oldBidder.placeBidOn(aLot, 10));
         // Bump up the current bid to the desired level
-        assertEquals(2, aLot.placeBid(10, middleBidder.getBidderId() ));
+        assertEquals(2, middleBidder.placeBidOn(aLot, 10));
 
         // Now bring in the test bidder
-        assertEquals(2, aLot.placeBid(11, newBidder.getBidderId() ));
+        assertEquals(2, newBidder.placeBidOn(aLot, 11));
 
         assertEquals("10\t10\t1\n11\t0\t0\n12\t0\t0\n13\t0\t0\n14\t0\t0\n15\t0\t0\n", newAuction.winningBids());
 
@@ -177,14 +177,14 @@ class BiddingTests {
         Lot lot10 = lots.get( 10 );
 
         auction1.openAuction();
-        assertEquals(3, lot1.placeBid(5, bidder1.getBidderId() ));
+        assertEquals(3, bidder1.placeBidOn(lot1, 5));
         assertEquals("theAuction\topen\t5\n", auction1.getStatus());
 
         // Bid on the other lots and check the outcome of all lots bid upon
 
-        assertEquals(3, lot2.placeBid(10, bidder1.getBidderId() ));
+        assertEquals(3, bidder1.placeBidOn(lot2, 10));
         assertEquals("theAuction\topen\t15\n", auction1.getStatus());
-        assertEquals(3, lot10.placeBid(55, bidder1.getBidderId() ));
+        assertEquals(3, bidder1.placeBidOn(lot10, 55));
         assertEquals("theAuction\topen\t70\n", auction1.getStatus());
 
     }

@@ -31,8 +31,7 @@ public class LotFactory {
             if (allLots.get(i) != null) {
                 throw new UsedLotRangeException("This lot number is already being used: " + i);
             } else {
-                // Passing null bidderList for now. Change lot constructor later to not require it
-                Lot lot = new Lot(auction, null, i);
+                Lot lot = new Lot(auction, i);
                 auctionLots.put(i, lot);
                 allLots.put(i, lot);
             }

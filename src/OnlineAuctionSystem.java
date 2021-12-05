@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 
 public class OnlineAuctionSystem {
@@ -99,18 +100,19 @@ public class OnlineAuctionSystem {
     }
 
     public int placeBid( int lotNumber, int bidderId, int bid ) {
-        int outcome = Lot.LotNotAccepting;
-
-        if ((lotNumber > 0) && (bidderId > 0) && (bid > 0)) {
-            // At least it's a feasible bid.  Check out whether it's possible in the current auction config.
-
-            Lot bidLot = lots.get( lotNumber );
-            if (bidLot != null) {
-                outcome = bidLot.placeBid( bid, bidderId );
-            }
+        if (bidderId < 0 || lotNumber < 0) {
+            throw new InputMismatchException("Negative input: " +
+                    "\nBidder ID: " + bidderId +
+                    "\nLot Number: " + lotNumber);
         }
 
-        return outcome;
+        Bidder bidder = bidders.get(bidderId);
+        Lot bidLot = lots.get( lotNumber );
+        if (bidder == null || bidLot == null) {
+            throw new NullPointerException("Bidder or Lot doesn't exist");
+        }
+
+        return bidder.placeBidOn(bidLot, bid);
     }
 
     public String feesOwed( ) {

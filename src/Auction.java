@@ -43,7 +43,7 @@ public class Auction {
             // Make the lots for the auction
 
             for(int i = lotStart; i <= lotEnd; i++) {
-                Lot newLot = new Lot( this, allBidders, i );
+                Lot newLot = new Lot( this, i );
                 lotSet.put( i, newLot );
             }
 

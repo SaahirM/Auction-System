@@ -23,17 +23,17 @@ class DataFlowTests {
         Lot lot2 = lots.get( 2 );
         Lot lot3 = lots.get( 3 );
 
-        assertEquals( 0, lot2.placeBid( 5, theBidder.getBidderId() ) );
+        assertEquals( 0,theBidder.placeBidOn(lot2, 5));
 
         // Open the auction then try a bid then that should succeed.
 
         assertTrue( theAuction.openAuction() );
-        assertEquals( 3, lot2.placeBid( 10, theBidder.getBidderId()  ) );
+        assertEquals( 3,theBidder.placeBidOn(lot2, 10));
 
         // Close the auction then try a bid then that should fail.
 
         assertTrue( theAuction.closeAuction() );
-        assertEquals( 0, lot3.placeBid( 10, theBidder.getBidderId()  ) );
+        assertEquals( 0,theBidder.placeBidOn(lot3, 10));
 
     }
 

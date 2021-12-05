@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class Bidder {
@@ -43,6 +44,16 @@ public class Bidder {
         owed = bidderName + "\t" + won + "\t" + cost + "\n";
 
         return owed;
+    }
+
+    public int placeBidOn(Lot lot, int amount) {
+        if (lot == null) {
+            throw new NullPointerException("Passed Lot is null");
+        } else if (amount <= 0) {
+            throw new InputMismatchException("Trying to bid non-positive amount: "
+                    + amount);
+        }
+        return lot.placeBid(amount, this.bidderNumber);
     }
 
     public boolean bidderIsReady() {
