@@ -5,6 +5,9 @@ public class DualMinLot extends Lot {
     private int minInc1;
     private int minInc2;
 
+    // Type of lot (so it is not confused with other types of lots)
+    public final static int lotType = 2;
+
     public DualMinLot(int lotNumber, int incLim, int min1, int min2) {
         super(lotNumber);
         this.incrementLimit = incLim;

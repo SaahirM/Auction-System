@@ -7,16 +7,16 @@ public class OnlineAuctionSystem {
     // The state of all the context for the auction system
     private ArrayList<Auction> auctions = null;  // all the auctions
     private HashMap<Integer, Bidder> bidders = null;    // all the bidders
-    private HashMap<Integer, Lot> lots = null;  // all the lots among the auctions
     private LotFactory theLotFactory = null; // produces (unique) lots for auctions
+    private HashMap<Integer, Lot> lots = null;  // all the lots among the auctions
 
     public OnlineAuctionSystem( ) {
         // Create places to store all fo the auctions, all of the bidders, and all of the auction lots.
 
         auctions = new ArrayList<Auction>();
         bidders = new HashMap<Integer, Bidder>();
-        lots = new HashMap<Integer, Lot>();
         theLotFactory = new LotFactory();
+        lots = theLotFactory.getAllLots();
     }
 
     public Auction createAuction( String auctionName, int firstLotNumber,
@@ -26,6 +26,7 @@ public class OnlineAuctionSystem {
 
         HashMap<Integer, Lot> auctionLots = theLotFactory.createLots(firstLotNumber, lastLotNumber);
         theAuction = new Auction(auctionLots, auctionName, minBidIncrement, region);
+        auctions.add(theAuction);
 
         return theAuction;
     }
@@ -49,6 +50,11 @@ public class OnlineAuctionSystem {
         }
 
         return theBidder;
+    }
+
+    public void changeLot(int lotNum, int lotType,
+                          int[] args) throws LotFactory.LotInUseException {
+        theLotFactory.changeLotType(lots, lotNum, lotType, args);
     }
 
     public String auctionStatus( ) {
@@ -101,8 +107,7 @@ public class OnlineAuctionSystem {
         StringBuilder owed = new StringBuilder();
 
 	    // Each bidder knows what they owe, so gather the status from them directly
-        for (int i = 0; i < bidders.size(); i++) {
-            Bidder bidder = bidders.get(i);
+        for (Bidder bidder : bidders.values()) {
             owed.append(bidder.feesOwed());
         }
 

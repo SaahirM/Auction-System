@@ -27,6 +27,10 @@ public class Bidder {
         return bidderNumber;
     }
 
+    public String getBidderRegion() {
+        return this.bidderRegion;
+    }
+
     public String feesOwed() {
         String owed = "";
         int won = 0;
@@ -53,11 +57,37 @@ public class Bidder {
                     + amount);
         } else {
             lots.add(lot);
-            return lot.placeBid(amount, this.bidderNumber);
+            return lot.placeBid(amount, this);
         }
     }
 
     public boolean bidderIsReady() {
         return bidderReady;
+    }
+
+    /**
+     * Returns list of auctions with the same region as this bidder
+     * @param allAuctions arrayList of every auction
+     * @return availableOptions arrayList of auctions bidder can bid at
+     */
+    public ArrayList<Auction> openAuctions(ArrayList<Auction> allAuctions) {
+        if (allAuctions == null) {
+            throw new NullPointerException("allAuctions ArrayList is null");
+        }
+
+        ArrayList<Auction> availableOptions = new ArrayList<>();
+        if (this.bidderRegion == null) {
+            availableOptions.addAll(allAuctions);
+            return availableOptions;
+        }
+
+        for (Auction auction : allAuctions) {
+            if (auction.getRegion() == null ||
+                    auction.getRegion().equals(this.bidderRegion)
+            ) {
+                availableOptions.add(auction);
+            }
+        }
+        return availableOptions;
     }
 }

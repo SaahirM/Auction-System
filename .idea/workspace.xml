@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="Overhauled Lot class, pushing bidder ID verification from Lot.placeBid() to Bidder.placeBidOn(), making it so bids are done through Bidder.placeBidOn().">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="Pulled lot creation process from Auction to LotFactory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/refactoring.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/refactoring.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Auction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bidder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bidder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DualMinLot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DualMinLot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LotFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LotFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OnlineAuctionSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegularLot.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReserveLot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReserveLot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TestHarness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestHarness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/systemtest/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/BiddingTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BiddingTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/BoundaryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BoundaryTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ControlFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ControlFlowTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/DataFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/DataFlowTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/InputValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/InputValidation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/systemtest/test02.gold" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test02.gold" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,12 +101,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/systemtest" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\saahi\Git-Dal\CSCI-2134\A_04\monowar\systemtest" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.All in OnlineAuction">
+    <configuration name="TestHarness" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="TestHarness" />
+      <module name="OnlineAuction" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -124,17 +130,6 @@
       <module name="OnlineAuction" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BiddingTests.PriorBidBeatMaxBid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OnlineAuction" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="BiddingTests" />
-      <option name="METHOD_NAME" value="PriorBidBeatMaxBid" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -192,17 +187,17 @@
     <list>
       <item itemvalue="JUnit.All in OnlineAuction" />
       <item itemvalue="JUnit.ControlFlowTests.lotState" />
-      <item itemvalue="JUnit.BiddingTests.PriorBidBeatMaxBid" />
       <item itemvalue="JUnit.BiddingTests.PriorBidBelowCurrentBid" />
       <item itemvalue="JUnit.InputValidation.placeBid" />
+      <item itemvalue="Application.TestHarness" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in OnlineAuction" />
+        <item itemvalue="Application.TestHarness" />
         <item itemvalue="JUnit.ControlFlowTests.lotState" />
         <item itemvalue="JUnit.InputValidation.placeBid" />
         <item itemvalue="JUnit.BiddingTests.PriorBidBelowCurrentBid" />
-        <item itemvalue="JUnit.BiddingTests.PriorBidBeatMaxBid" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +228,7 @@
       <workItem from="1638321473457" duration="4478000" />
       <workItem from="1638406237088" duration="3830000" />
       <workItem from="1638653269370" duration="18154000" />
-      <workItem from="1638736067531" duration="2567000" />
+      <workItem from="1638736067531" duration="8969000" />
     </task>
     <task id="LOCAL-00001" summary="changed Auction and Bidder constructors throughout project to include region">
       <created>1638410011107</created>
@@ -256,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638668353529</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Pulled lot creation process from Auction to LotFactory">
+      <created>1638739515990</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638739515990</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -333,7 +335,23 @@
     <MESSAGE value="changed Auction and Bidder constructors throughout project to include region" />
     <MESSAGE value="Implemented LotFactory and Lot subclasses to be used later" />
     <MESSAGE value="Overhauled Lot class, pushing bidder ID verification from Lot.placeBid() to Bidder.placeBidOn(), making it so bids are done through Bidder.placeBidOn()." />
-    <option name="LAST_COMMIT_MESSAGE" value="Overhauled Lot class, pushing bidder ID verification from Lot.placeBid() to Bidder.placeBidOn(), making it so bids are done through Bidder.placeBidOn()." />
+    <MESSAGE value="Pulled lot creation process from Auction to LotFactory" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pulled lot creation process from Auction to LotFactory" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/TestHarness.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/OnlineAuctionSystem.java">

@@ -8,6 +8,9 @@ public class Lot {
     public final static int BidAcceptableNotWinning = 2;
     public final static int BidWinning = 3;
 
+    // Type of lot (so it is not confused with its subclasses)
+    public final static int lotType = 0;
+
     // Context about this lot
     private int lotNumber = 0;
     private int winningBidder = 0;
@@ -65,28 +68,44 @@ public class Lot {
         return lotNumber + "\t" + topBid + "\t" + winningBidder + "\n";
     }
 
-    public int placeBid( int bid, int bidderId ) {
+    public int placeBid( int bid, Bidder bidder ) {
         assert (bid > 0) : "Bid is negative";
+        assert (bidder != null) : "Bidder is null";
+
+        int bidderId = bidder.getBidderId();
         int outcome = LotNotAccepting;
 
         if (!isClosed()) {
-            outcome = BidAcceptableNotWinning;
+            outcome = BidNotAcceptable;
 
-            // If the current winner is re-bidding then it's just to increase the current reserve bid
-            if (bidderId == winningBidder) {
-                if (bid > topBid) {
-                    topBid = bid;
-                    outcome = BidWinning;
-                }
-            } else {
+            boolean isBidderNearby = (bidder.getBidderRegion() == null) ||
+                    (
+                            (theAuction != null) &&
+                                    (theAuction.getRegion() != null) &&
+                                    (bidder.getBidderRegion() != null) &&
+                                    (bidder.getBidderRegion().equals(theAuction.getRegion()))
+                    );
 
-                // An acceptable bid must exceed the current bid by the minimum increment or more.
-                if (bid >= topBid + theAuction.getMinIncrement()) {
+            if (isBidderNearby) {
 
-                    outcome = BidWinning;
-                    winningBidder = bidderId;
+                outcome = BidAcceptableNotWinning;
 
-                    topBid = bid;
+                // If the current winner is re-bidding then it's just to increase the current reserve bid
+                if (bidderId == winningBidder) {
+                    if (bid > topBid) {
+                        topBid = bid;
+                        outcome = BidWinning;
+                    }
+                } else {
+
+                    // An acceptable bid must exceed the current bid by the minimum increment or more.
+                    if (bid >= topBid + theAuction.getMinIncrement()) {
+
+                        outcome = BidWinning;
+                        winningBidder = bidderId;
+
+                        topBid = bid;
+                    }
                 }
             }
         }

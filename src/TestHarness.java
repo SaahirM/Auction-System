@@ -6,6 +6,7 @@ public class TestHarness {
 
     private static final String createAuctionCommand = "auction";
     private static final String createBidderCommand = "bidder";
+    private static final String changeLotCommand = "lot";
     private static final String auctionStatusCommand = "status";
     private static final String placeBidCommand = "bid";
     private static final String feesOwedCommand = "owed";
@@ -26,6 +27,7 @@ public class TestHarness {
             System.out.println("Commands available:");
             System.out.println("  " + createAuctionCommand + " <first lot> <last lot> <min bid increment> <auction name>");
             System.out.println("  " + createBidderCommand + " <bidder name>");
+            System.out.println("  " + changeLotCommand + " <lot number> <new lot type> [parameters for lot type]");
             System.out.println("  " + auctionStatusCommand );
             System.out.println("  " + placeBidCommand + " <lot number> <bidder number> <bid>");
             System.out.println("  " + feesOwedCommand);
@@ -129,6 +131,43 @@ public class TestHarness {
                         System.out.println("Bidder returned with id " + newBidder.getBidderId() + " created.  Refer to it as bidder " + (1 + definedBidders.size()));
                         definedBidders.add(newBidder);
                     }
+                } else if (userCommand.equalsIgnoreCase(changeLotCommand)) {
+                    int lotNum = userInput.nextInt();
+                    String type = userInput.next();
+                    int[] params = {};
+                    int newType = -1;
+
+                    switch (type) {
+                        case "regular" -> {
+                            params = new int[0];
+                            newType = 0;
+                        }
+                        case "reserve" -> {
+                            params = new int[1];
+                            params[0] = userInput.nextInt();
+                            newType = 1;
+                        }
+                        case "dualmin" -> {
+                            params = new int[3];
+                            params[0] = userInput.nextInt();
+                            params[1] = userInput.nextInt();
+                            params[2] = userInput.nextInt();
+                            newType = 2;
+                        }
+                        default -> System.out.println("Lot type not recognized");
+                    }
+
+                    ignoredString = getEndingString(userInput);
+
+                    if (newType != -1) {
+                        try {
+                            auctionSystem.changeLot(lotNum, newType, params);
+                        } catch (LotFactory.LotInUseException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+
                 } else if (userCommand.equalsIgnoreCase(auctionStatusCommand)) {
                     String theStatus = auctionSystem.auctionStatus();
                     ignoredString = getEndingString(userInput);
