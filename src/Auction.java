@@ -10,29 +10,22 @@ public class Auction {
 
     // Context about this auction
     private String auctionName = null;
-    private int lotStart = 0;
-    private int lotEnd = 0;
     private int minIncrement = 0;
     private int state = NewAuction;
     private String region;
 
     // Context surrounding this auction
     private HashMap<Integer, Lot> lotSet = null;    // All the lots available
-    private HashMap<Integer, Bidder> bidderSet = null;      // All the bidders in the system
 
     // Helper variables for the class
     private Map<Integer, String> naming = null;
     private boolean auctionReady = false;
 
-    public Auction( HashMap<Integer, Lot> auctionLots, HashMap<Integer, Bidder> allBidders, String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement, String region ) {
-        if ((firstLotNumber > 0) && (firstLotNumber <= lastLotNumber) && (auctionName != null) && (auctionName.length() > 0) && (minBidIncrement > 0)) {
+    public Auction( HashMap<Integer, Lot> auctionLots, String auctionName, int minBidIncrement, String region ) throws Lot.AuctionAlreadySetException {
+        if ((auctionName != null) && (auctionName.length() > 0) && (minBidIncrement > 0)) {
             this.auctionName = auctionName;
-            this.lotStart = firstLotNumber;
-            this.lotEnd = lastLotNumber;
             this.minIncrement = minBidIncrement;
-            this.state = NewAuction;
             this.lotSet = auctionLots;
-            this.bidderSet = allBidders;
             this.region = region;
 
             naming = new HashMap<Integer, String>();
@@ -40,11 +33,9 @@ public class Auction {
             naming.put( OpenAuction, "open" );
             naming.put( ClosedAuction, "closed" );
 
-            // Make the lots for the auction
-
-            for(int i = lotStart; i <= lotEnd; i++) {
-                Lot newLot = new Lot( this, i );
-                lotSet.put( i, newLot );
+            // Link the lots to this auction
+            for (Lot lot : lotSet.values()) {
+                lot.setAuction(this);
             }
 
             auctionReady = true;
@@ -74,14 +65,14 @@ public class Auction {
     }
 
     public String winningBids( ) {
-        String bids = null;
+        StringBuilder bids = null;
 
-        bids = "";
-        for(int lot = lotStart; lot <= lotEnd; lot++ ) {
-            bids += lotSet.get(lot).winningBidString();
+        bids = new StringBuilder();
+        for(Lot lot : lotSet.values()) {
+            bids.append(lot.winningBidString());
         }
 
-        return bids;
+        return bids.toString();
     }
 
     public int getMinIncrement( ) {
@@ -94,8 +85,8 @@ public class Auction {
 
         // Find out all the bids
 
-        for(int lot = lotStart; lot <= lotEnd; lot++ ) {
-            bids += lotSet.get(lot).currentBid();
+        for(Lot lot : lotSet.values()) {
+            bids += lot.currentBid();
         }
 
         // Make the return string.
@@ -110,8 +101,8 @@ public class Auction {
 
         // Find out all the bids
 
-        for(int lot = lotStart; lot <= lotEnd; lot++ ) {
-            bids += lotSet.get(lot).currentBid();
+        for(Lot lot : lotSet.values()) {
+            bids += lot.currentBid();
         }
 
         return bids;
@@ -131,14 +122,6 @@ public class Auction {
 
     public String getAuctionName() {
         return auctionName;
-    }
-
-    public int getMinLot() {
-        return lotStart;
-    }
-
-    public int getMaxLot() {
-        return lotEnd;
     }
 
     public String getRegion() {

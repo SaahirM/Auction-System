@@ -8,6 +8,7 @@ public class OnlineAuctionSystem {
     private ArrayList<Auction> auctions = null;  // all the auctions
     private HashMap<Integer, Bidder> bidders = null;    // all the bidders
     private HashMap<Integer, Lot> lots = null;  // all the lots among the auctions
+    private LotFactory theLotFactory = null; // produces (unique) lots for auctions
 
     public OnlineAuctionSystem( ) {
         // Create places to store all fo the auctions, all of the bidders, and all of the auction lots.
@@ -15,35 +16,16 @@ public class OnlineAuctionSystem {
         auctions = new ArrayList<Auction>();
         bidders = new HashMap<Integer, Bidder>();
         lots = new HashMap<Integer, Lot>();
+        theLotFactory = new LotFactory();
     }
 
-    public Auction createAuction( String auctionName, int firstLotNumber, int lastLotNumber, int minBidIncrement, String region ) {
+    public Auction createAuction( String auctionName, int firstLotNumber,
+            int lastLotNumber, int minBidIncrement, String region )
+            throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         Auction theAuction = null;
 
-        // Check that the lot ranges don't overlap.  If two ranges are distinct then one ends before the next one starts
-
-        boolean distinctLotRange = true;
-        for (Auction anAuction : auctions) {
-            int lotStart = anAuction.getMinLot();
-            int lotEnd = anAuction.getMaxLot();
-
-            if (!((lastLotNumber < lotStart) || (firstLotNumber > lotEnd))) {
-                distinctLotRange = false;
-                break;
-            }
-        }
-
-	    // Only create an auction if the auction lot numbers won't overlap with another auction
-
-        if (distinctLotRange) {
-            // Make the auction.
-            theAuction = new Auction(lots, bidders, auctionName, firstLotNumber, lastLotNumber, minBidIncrement, region);
-            if (theAuction.auctionIsReady()) {
-                auctions.add(theAuction);
-            } else {
-                theAuction = null;
-            }
-        }
+        HashMap<Integer, Lot> auctionLots = theLotFactory.createLots(firstLotNumber, lastLotNumber);
+        theAuction = new Auction(auctionLots, auctionName, minBidIncrement, region);
 
         return theAuction;
     }
@@ -53,7 +35,7 @@ public class OnlineAuctionSystem {
         int id = 1 + bidders.size();
 
         // Create the bidder
-        theBidder = new Bidder( lots, bidderName, id, region);
+        theBidder = new Bidder(bidderName, id, region);
         if (theBidder.bidderIsReady()) {
             // Make sure we have space to store the bidder information
 

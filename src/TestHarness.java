@@ -101,7 +101,14 @@ public class TestHarness {
                     if (region.equals("")) {
                         region = null;
                     }
-                    Auction newAuction = auctionSystem.createAuction( name, firstLot, lastLot, minBid, region );
+                    Auction newAuction = null;
+                    try {
+                        newAuction = auctionSystem.createAuction(name, firstLot, lastLot, minBid, region);
+                    } catch (LotFactory.UsedLotRangeException e) {
+                        System.out.println("Lot range is not unique. Try again");
+                    } catch (Lot.AuctionAlreadySetException e) {
+                        e.printStackTrace(); // Likely not a user error
+                    }
                     if (newAuction == null) {
                         System.out.println("null returned for auction");
                     } else {

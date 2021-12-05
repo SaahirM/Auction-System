@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,12 +8,29 @@ class ControlFlowTests {
 
     @Test
     void createAuctionTests() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction auction1 = new Auction( lots, bidders, "First", 2, 3, 1, null );
-        Auction auction2 = new Auction( lots, bidders, "Second", 4, 5, 1, null );
-        Auction auction3 = new Auction( lots, bidders, "Third", 6, 7, 1, null);
+        HashMap<Integer, Lot> lotList1 = null;
+        HashMap<Integer, Lot> lotList2 = null;
+        HashMap<Integer, Lot> lotList3 = null;
+
+        Auction auction1 = null;
+        Auction auction2 = null;
+        Auction auction3 = null;
+
+        try {
+            lotList1 = lotFactory.createLots(2, 3);
+            auction1 = new Auction(lotList1, "First", 1, null);
+            lotList2 = lotFactory.createLots(4, 5);
+            auction2 = new Auction(lotList2, "Second", 1, null);
+            lotList3 = lotFactory.createLots(6, 7);
+            auction3 = new Auction(lotList3, "Third", 1, null);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
 
         assertTrue( auction1.auctionIsReady() );
         assertTrue( auction2.auctionIsReady() );
@@ -26,9 +42,9 @@ class ControlFlowTests {
         HashMap<Integer, Lot> lots = new HashMap<>();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Bidder bidder1 = new Bidder( lots, "Alice", 1, null );
-        Bidder bidder2 = new Bidder( lots, "Bob", 2, null );
-        Bidder bidder3 = new Bidder( lots, "Charlene", 3, null );
+        Bidder bidder1 = new Bidder("Alice", 1, null );
+        Bidder bidder2 = new Bidder("Bob", 2, null );
+        Bidder bidder3 = new Bidder("Charlene", 3, null );
 
         assertTrue( bidder1.bidderIsReady() );
         assertTrue( bidder2.bidderIsReady() );
@@ -37,12 +53,29 @@ class ControlFlowTests {
 
     @Test
     void auctionStatusTests() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction auction1 = new Auction( lots, bidders, "First", 2, 3, 1, null );
-        Auction auction2 = new Auction( lots, bidders, "Second", 4, 5, 1, null );
-        Auction auction3 = new Auction( lots, bidders, "Third", 6, 7, 1, null );
+        HashMap<Integer, Lot> lotList1 = null;
+        HashMap<Integer, Lot> lotList2 = null;
+        HashMap<Integer, Lot> lotList3 = null;
+
+        Auction auction1 = null;
+        Auction auction2 = null;
+        Auction auction3 = null;
+
+        try {
+            lotList1 = lotFactory.createLots(2, 3);
+            auction1 = new Auction(lotList1, "First", 1, null);
+            lotList2 = lotFactory.createLots(4, 5);
+            auction2 = new Auction(lotList2, "Second", 1, null);
+            lotList3 = lotFactory.createLots(6, 7);
+            auction3 = new Auction(lotList3, "Third", 1, null);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
 
         if (auction2.openAuction() && auction3.openAuction() && auction3.closeAuction()) {
             assertEquals("First\tnew\t0\n", auction1.getStatus());
@@ -53,18 +86,28 @@ class ControlFlowTests {
 
     @Test
     void winningBids() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
+        HashMap<Integer, Lot> lots = null;
         HashMap<Integer, Bidder> bidders = new HashMap<>();
-        Auction theAuction = new Auction( lots, bidders, "FirstAuction", 10, 15, 2, null );
+        Auction theAuction = null;
+
+        try {
+            lots = lotFactory.createLots(10, 15);
+            theAuction = new Auction(lots, "FirstAuction", 2, null);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
         assertNotNull( theAuction );
 
         theAuction.openAuction();
 
         // Make some bidders to work with
 
-        Bidder bidder1 = new Bidder( lots, "Alice", 1, null );
-        Bidder bidder2 = new Bidder( lots, "Bob", 2, null );
-        Bidder bidder3 = new Bidder( lots, "Charlie", 3, null );
+        Bidder bidder1 = new Bidder("Alice", 1, null );
+        Bidder bidder2 = new Bidder("Bob", 2, null );
+        Bidder bidder3 = new Bidder("Charlie", 3, null );
 
         bidders.put(1, bidder1);
         bidders.put(2, bidder2);
@@ -92,16 +135,38 @@ class ControlFlowTests {
 
     @Test
     void feesOwed() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        // Get a mix of auctions to receive bids
+        HashMap<Integer, Lot> lotList1 = null;
+        HashMap<Integer, Lot> lotList2 = null;
+        HashMap<Integer, Lot> lotList3 = null;
+        HashMap<Integer, Lot> lotList4 = null;
+        HashMap<Integer, Lot> lotList5 = null;
 
-        Auction auction1 = new Auction( lots, bidders, "FirstAuction", 10, 19, 2, null );
-        Auction auction2 = new Auction( lots, bidders, "SecondAuction", 20, 29, 2, null );
-        Auction auction3 = new Auction( lots, bidders, "ThirdAuction", 30, 39, 2, null );
-        Auction auction4 = new Auction( lots, bidders, "FourthAuction", 40, 49, 2, null );
-        Auction auction5 = new Auction( lots, bidders, "NewAuction", 50, 59, 2, null );
+        Auction auction1 = null;
+        Auction auction2 = null;
+        Auction auction3 = null;
+        Auction auction4 = null;
+        Auction auction5 = null;
+
+        // Get a mix of auctions to receive bids
+        try {
+            lotList1 = lotFactory.createLots(10, 19);
+            auction1 = new Auction(lotList1, "FirstAuction", 2, null);
+            lotList2 = lotFactory.createLots(20, 29);
+            auction2 = new Auction(lotList2, "SecondAuction", 2, null);
+            lotList3 = lotFactory.createLots(30, 39);
+            auction3 = new Auction(lotList3, "ThirdAuction", 2, null);
+            lotList4 = lotFactory.createLots(40, 49);
+            auction4 = new Auction(lotList4, "FourthAuction", 2, null);
+            lotList5 = lotFactory.createLots(50, 59);
+            auction5 = new Auction(lotList5, "NewAuction", 2, null);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
 
         assertTrue( auction1.auctionIsReady() );
         assertTrue( auction2.auctionIsReady() );
@@ -116,12 +181,12 @@ class ControlFlowTests {
 
         // Set up some bidders too
 
-        Bidder bidder1 = new Bidder( lots, "Alice", 1, null ); // win 0 closed, 0 open
-        Bidder bidder2 = new Bidder( lots, "Bob", 2, null ); // win 0 closed, 1 open
-        Bidder bidder3 = new Bidder( lots, "Charlie", 3, null ); // win 1 closed, 0 open
-        Bidder bidder4 = new Bidder( lots, "Denise", 4, null ); // win 1 closed, 1 open
-        Bidder bidder5 = new Bidder( lots, "Edna", 5, null ); // win many closed, 0 open
-        Bidder bidder6 = new Bidder( lots, "Frank", 6, null ); // win many closed, many open
+        Bidder bidder1 = new Bidder("Alice", 1, null ); // win 0 closed, 0 open
+        Bidder bidder2 = new Bidder("Bob", 2, null ); // win 0 closed, 1 open
+        Bidder bidder3 = new Bidder("Charlie", 3, null ); // win 1 closed, 0 open
+        Bidder bidder4 = new Bidder("Denise", 4, null ); // win 1 closed, 1 open
+        Bidder bidder5 = new Bidder("Edna", 5, null ); // win many closed, 0 open
+        Bidder bidder6 = new Bidder("Frank", 6, null ); // win many closed, many open
 
         assertTrue( bidder1.bidderIsReady() );
         assertTrue( bidder2.bidderIsReady() );
@@ -140,36 +205,36 @@ class ControlFlowTests {
         // Set the bids as we'll expect.  Auctions 2 and 3 will get closed.  Auction 5 is never opened.
 
         // Win 0 closed, 1 open
-        assertEquals( 3,bidder2.placeBidOn(lots.get( 15 ), 2) );
+        assertEquals( 3,bidder2.placeBidOn(lotList1.get( 15 ), 2) );
 
         // Win 1 closed, 0 open
 
-        assertEquals( 3,bidder3.placeBidOn(lots.get( 24 ), 2) );
+        assertEquals( 3,bidder3.placeBidOn(lotList2.get( 24 ), 2) );
 
         // Win 1 closed, 1 open
 
-        assertEquals( 3,bidder4.placeBidOn(lots.get( 26 ), 2) );
-        assertEquals( 3,bidder4.placeBidOn(lots.get( 16 ), 2) );
+        assertEquals( 3,bidder4.placeBidOn(lotList2.get( 26 ), 2) );
+        assertEquals( 3,bidder4.placeBidOn(lotList1.get( 16 ), 2) );
 
         // Win many closed, 0 open
 
-        assertEquals( 3,bidder5.placeBidOn(lots.get( 30 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lots.get( 31 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lots.get( 32 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lots.get( 33 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lots.get( 34 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 30 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 31 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 32 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 33 ), 2) );
+        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 34 ), 2) );
 
         // Win many closed, many open
 
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 35 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 36 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 37 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 38 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 42 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 43 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 44 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 45 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lots.get( 46 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 35 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 36 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 37 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 38 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 42 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 43 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 44 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 45 ), 2) );
+        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 46 ), 2) );
 
         // Close off the relevant auctions
 
@@ -189,23 +254,43 @@ class ControlFlowTests {
 
     @Test
     void lotState() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
+        HashMap<Integer, Lot> lots = null;
         HashMap<Integer, Bidder> bidders = new HashMap<>();
+        Auction auction1 = null;
 
         // Get a mix of auctions to receive bids
 
-        Auction auction1 = new Auction(lots, bidders, "FirstAuction", 10, 19, 2, null);
+        try {
+            lots = lotFactory.createLots(10, 19);
+            auction1 = new Auction(lots, "FirstAuction", 2, null);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
 
         // Ensure that the state of a lot matches the state of the auction to which it belongs.
 
         Lot aLot = lots.get( 15 );
 
-        assertFalse( aLot.isClosed() );
+        // new auction
+        assertTrue( aLot.isClosed() );
 
         auction1.openAuction();
         assertFalse( aLot.isClosed() );
 
         auction1.closeAuction();
         assertTrue( aLot.isClosed() );
+
+        // Lot with no auction
+        HashMap<Integer, Lot> lotList = null;
+        try {
+            lotList = lotFactory.createLots(20, 20);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        }
+        Lot anotherLot = lotList.get(20);
+        assertTrue( anotherLot.isClosed() );
     }
 }

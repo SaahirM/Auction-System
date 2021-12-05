@@ -5,9 +5,8 @@ public class DualMinLot extends Lot {
     private int minInc1;
     private int minInc2;
 
-    public DualMinLot(Auction auction,
-                      int lotNumber, int incLim, int min1, int min2) {
-        super(auction, lotNumber);
+    public DualMinLot(int lotNumber, int incLim, int min1, int min2) {
+        super(lotNumber);
         this.incrementLimit = incLim;
         this.minInc1 = min1;
         this.minInc2 = min2;

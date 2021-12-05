@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Map;
 
@@ -8,16 +9,15 @@ public class Bidder {
     private String bidderRegion;
 
     // Context that surrounds this bidder
-    private Map<Integer, Lot> lotSet = null;
+    private ArrayList<Lot> lots = new ArrayList<>();
 
     // State of readiness of the class
     private boolean bidderReady = false;
 
-    public Bidder( Map<Integer, Lot> lots, String bidderName, int bidderId, String region ) {
+    public Bidder( String bidderName, int bidderId, String region ) {
         if ((bidderId > 0) && (bidderName != null) && (bidderName.length() > 0)) {
             this.bidderNumber = bidderId;
             this.bidderName = bidderName;
-            this.lotSet = lots;
             this.bidderRegion = region;
             bidderReady = true;
         }
@@ -32,8 +32,7 @@ public class Bidder {
         int won = 0;
         int cost = 0;
 
-        for( Map.Entry<Integer, Lot> entry : lotSet.entrySet() ){
-            Lot theLot = entry.getValue();
+        for( Lot theLot : lots ){
             if (theLot.isClosed() && (theLot.winningBidder() == bidderNumber)) {
                 // Add this lot to what's reported.
                 won++;
@@ -52,8 +51,10 @@ public class Bidder {
         } else if (amount <= 0) {
             throw new InputMismatchException("Trying to bid non-positive amount: "
                     + amount);
+        } else {
+            lots.add(lot);
+            return lot.placeBid(amount, this.bidderNumber);
         }
-        return lot.placeBid(amount, this.bidderNumber);
     }
 
     public boolean bidderIsReady() {

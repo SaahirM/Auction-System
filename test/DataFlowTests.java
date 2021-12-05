@@ -2,16 +2,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
-import java.util.ArrayList;
 
 class DataFlowTests {
     @Test
     void createAuctionTests() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
+        LotFactory lotFactory = new LotFactory();
+        HashMap<Integer, Lot> lots = null;
+        try {
+            lots = lotFactory.createLots(2, 3);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        }
         HashMap<Integer, Bidder> bidders = new HashMap<>();
 
-        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1, null );
-        Bidder theBidder = new Bidder(lots, "someone", 1, null );
+        Auction theAuction = null;
+        try {
+            theAuction = new Auction( lots, "First", 1, null );
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
+        Bidder theBidder = new Bidder("someone", 1, null );
 
         assertTrue( theAuction.auctionIsReady() );
         assertTrue( theBidder.bidderIsReady() );
@@ -23,26 +33,36 @@ class DataFlowTests {
         Lot lot2 = lots.get( 2 );
         Lot lot3 = lots.get( 3 );
 
-        assertEquals( 0,theBidder.placeBidOn(lot2, 5));
+        assertEquals( 0,theBidder.placeBidOn(lot2, 5) );
 
         // Open the auction then try a bid then that should succeed.
 
         assertTrue( theAuction.openAuction() );
-        assertEquals( 3,theBidder.placeBidOn(lot2, 10));
+        assertEquals( 3,theBidder.placeBidOn(lot2, 10) );
 
         // Close the auction then try a bid then that should fail.
 
         assertTrue( theAuction.closeAuction() );
-        assertEquals( 0,theBidder.placeBidOn(lot3, 10));
+        assertEquals( 0,theBidder.placeBidOn(lot3, 10) );
 
     }
 
     @Test
     void openAndCloseTests() {
-        HashMap<Integer, Lot> lots = new HashMap<>();
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
+        HashMap<Integer, Lot> lots = null;
+        LotFactory lotFactory = new LotFactory();
+        try {
+            lots = lotFactory.createLots(2, 3);
+        } catch (LotFactory.UsedLotRangeException e) {
+            fail("creating unique lots should not have raised an exception");
+        }
 
-        Auction theAuction = new Auction( lots, bidders, "First", 2, 3, 1, null );
+        Auction theAuction = null;
+        try {
+            theAuction = new Auction( lots, "First", 1, null );
+        } catch (Lot.AuctionAlreadySetException e) {
+            fail("Unexpected exception");
+        }
 
         assertTrue( theAuction.auctionIsReady() );
 
