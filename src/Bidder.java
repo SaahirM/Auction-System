@@ -3,12 +3,12 @@ import java.util.InputMismatchException;
 
 public class Bidder {
     // Context about this bidder
-    private int bidderNumber;
-    private String bidderName;
-    private String bidderRegion;
+    private final int bidderNumber;
+    private final String bidderName;
+    private final String bidderRegion;
 
     // Context that surrounds this bidder
-    private ArrayList<Lot> lots = new ArrayList<>();
+    private final ArrayList<Lot> lots = new ArrayList<>();
 
     public Bidder( String bidderName, int bidderId, String region ) {
         if (bidderName == null) {

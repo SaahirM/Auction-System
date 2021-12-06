@@ -16,11 +16,6 @@ public class TestHarness {
     private static final String helpCommand = "help";
     private static final String quitCommand = "quit";
 
-    // The interface needs to track the auctions and bidders that are created.  Store them in a simple ArrayList
-
-    private static ArrayList<Auction> definedAuctions = null;
-    private static ArrayList<Bidder> definedBidders = null;
-
     // Print the information on all the commands available in this test harness
 
     private static void printUsage() {
@@ -43,7 +38,7 @@ public class TestHarness {
     //   "empty" asks us to return an empty string
 
     private static String getEndingString(Scanner userInput ) {
-        String userArgument = null;
+        String userArgument;
 
         userArgument = userInput.nextLine();
         userArgument = userArgument.trim();
@@ -65,167 +60,163 @@ public class TestHarness {
     public static void main(String[] args) {
         // Define variables to manage user input
 
-        String userCommand = "";
-        String userArgument = "";
+        String userCommand;
         Scanner userInput = new Scanner(System.in);
 
         // Define the auction system that we will be testing.
 
         OnlineAuctionSystem auctionSystem = new OnlineAuctionSystem();
 
-        definedAuctions = new ArrayList<>();
-        definedBidders = new ArrayList<>(); 
 
-        if ((auctionSystem == null) || (definedAuctions == null) || (definedBidders == null)) {
-            System.out.println("Unable to initialize the auction system.");
-        } else {
-            // Define variables to catch the return values of the methods
+        // The interface needs to track the auctions and bidders that are created.  Store them in a simple ArrayList
+        ArrayList<Auction> definedAuctions = new ArrayList<>();
+        ArrayList<Bidder> definedBidders = new ArrayList<>();
 
-            Integer intOutcome;
-            String ignoredString;
+        // Define variables to catch the return values of the methods
 
-            // Process the user input until they provide the command "quit"
+        int intOutcome;
 
-            do {
-                // Find out what the user wants to do
-                userCommand = userInput.next();
+        // Process the user input until they provide the command "quit"
 
-                        /* Do what the user asked for.  If condition for each command.  Since each command
-                           has a different number of parameters, we do separate handling of each command. */
+        do {
+            // Find out what the user wants to do
+            userCommand = userInput.next();
 
-                if (userCommand.equalsIgnoreCase(createAuctionCommand)) {
-                    int firstLot = userInput.nextInt();
-                    int lastLot = userInput.nextInt();
-                    int minBid = userInput.nextInt();
-                    String name = userInput.next();
-                    String region = getEndingString( userInput );
+                    /* Do what the user asked for.  If condition for each command.  Since each command
+                       has a different number of parameters, we do separate handling of each command. */
 
-                    if (region.equals("")) {
-                        region = null;
-                    }
-                    Auction newAuction = null;
-                    try {
-                        newAuction = auctionSystem.createAuction(name, firstLot, lastLot, minBid, region);
-                    } catch (LotFactory.UsedLotRangeException e) {
-                        System.out.println("Lot range is not unique. Try again");
-                    } catch (Lot.AuctionAlreadySetException e) {
-                        e.printStackTrace(); // Likely not a user error
-                    }
-                    if (newAuction == null) {
-                        System.out.println("null returned for auction");
-                    } else {
-                        System.out.println("Auction created.  Refer to it as auction " + (1+definedAuctions.size()));
-                        definedAuctions.add( newAuction );
-                    }
-                } else if (userCommand.equalsIgnoreCase(createBidderCommand)) {
-                    String name = userInput.next();
-                    String region = getEndingString( userInput );
+            if (userCommand.equalsIgnoreCase(createAuctionCommand)) {
+                int firstLot = userInput.nextInt();
+                int lastLot = userInput.nextInt();
+                int minBid = userInput.nextInt();
+                String name = userInput.next();
+                String region = getEndingString( userInput );
 
-                    if (region.equals("")) {
-                        region = null;
-                    }
-                    Bidder newBidder = auctionSystem.createBidder( name, region );
-                    if (newBidder == null) {
-                        System.out.println("null returned for bidder");
-                    } else {
-                        System.out.println("Bidder returned with id " + newBidder.getBidderId() + " created.  Refer to it as bidder " + (1 + definedBidders.size()));
-                        definedBidders.add(newBidder);
-                    }
-                } else if (userCommand.equalsIgnoreCase(changeLotCommand)) {
-                    int lotNum = userInput.nextInt();
-                    String type = userInput.next();
-                    int[] params = {};
-                    int newType = -1;
-
-                    switch (type) {
-                        case "regular" -> {
-                            params = new int[0];
-                            newType = 0;
-                        }
-                        case "reserve" -> {
-                            params = new int[1];
-                            params[0] = userInput.nextInt();
-                            newType = 1;
-                        }
-                        case "dualmin" -> {
-                            params = new int[3];
-                            params[0] = userInput.nextInt();
-                            params[1] = userInput.nextInt();
-                            params[2] = userInput.nextInt();
-                            newType = 2;
-                        }
-                        default -> System.out.println("Lot type not recognized");
-                    }
-
-                    ignoredString = getEndingString(userInput);
-
-                    if (newType != -1) {
-                        boolean outcome = auctionSystem.changeLot(lotNum, newType, params);
-                        System.out.println( "Returned boolean value: " + outcome);
-                    }
-
-
-                } else if (userCommand.equalsIgnoreCase(auctionStatusCommand)) {
-                    String theStatus = auctionSystem.auctionStatus();
-                    ignoredString = getEndingString(userInput);
-
-                    if (theStatus == null) {
-                            System.out.println("null returned for status string");
-                        } else {
-                            System.out.println("Returned string:\n"+ theStatus);
-                        }
-                } else if (userCommand.equalsIgnoreCase(placeBidCommand)) {
-                    int lotNumber = userInput.nextInt();
-                    int bidderNumber = userInput.nextInt();
-                    int bid = userInput.nextInt();
-
-                    // Clean up the end of the line
-
-                    ignoredString = getEndingString(userInput);
-
-                    // Call the method
-
-                    intOutcome = auctionSystem.placeBid( lotNumber, definedBidders.get( bidderNumber-1 ).getBidderId(), bid );
-                    System.out.println(userCommand + " outcome " + intOutcome);
-                } else if (userCommand.equalsIgnoreCase(feesOwedCommand)) {
-                    ignoredString = getEndingString(userInput);
-
-                    String owed = auctionSystem.feesOwed();
-
-                    System.out.println( "Returned string:\n" + owed );
-                } else if (userCommand.equalsIgnoreCase(openAuctionCommand)) {
-                    int auctionNumber = userInput.nextInt();
-                    ignoredString = getEndingString(userInput);
-
-                    boolean opened = definedAuctions.get( auctionNumber-1 ).openAuction();
-
-                    System.out.println( "Returned boolean value: " + opened );
-                } else if (userCommand.equalsIgnoreCase(closeAuctionCommand)) {
-                    int auctionNumber = userInput.nextInt();
-                    ignoredString = getEndingString(userInput);
-
-                    boolean closed = definedAuctions.get( auctionNumber-1 ).closeAuction();
-
-                    System.out.println( "Returned boolean value: " + closed );
-                } else if (userCommand.equalsIgnoreCase(winningBidsCommand)) {
-                    int auctionNumber = userInput.nextInt();
-                    ignoredString = getEndingString(userInput);
-
-                    String theBids = definedAuctions.get( auctionNumber-1 ).winningBids();
-
-                    System.out.println( "Returned string:\n" + theBids );
-                } else if (userCommand.equalsIgnoreCase(helpCommand)) {
-                    printUsage();
-                } else if (userCommand.equalsIgnoreCase(quitCommand)) {
-                    System.out.println(userCommand);
-                } else {
-                    System.out.println("Bad command: " + userCommand);
+                if (region.equals("")) {
+                    region = null;
                 }
-            } while (!userCommand.equalsIgnoreCase("quit"));
+                Auction newAuction = null;
+                try {
+                    newAuction = auctionSystem.createAuction(name, firstLot, lastLot, minBid, region);
+                } catch (LotFactory.UsedLotRangeException e) {
+                    System.out.println("Lot range is not unique. Try again");
+                } catch (Lot.AuctionAlreadySetException e) {
+                    e.printStackTrace(); // Likely not a user error
+                }
+                if (newAuction == null) {
+                    System.out.println("null returned for auction");
+                } else {
+                    System.out.println("Auction created.  Refer to it as auction " + (1+ definedAuctions.size()));
+                    definedAuctions.add( newAuction );
+                }
+            } else if (userCommand.equalsIgnoreCase(createBidderCommand)) {
+                String name = userInput.next();
+                String region = getEndingString( userInput );
 
-            // The user is done so close the stream of user input before ending.
+                if (region.equals("")) {
+                    region = null;
+                }
+                Bidder newBidder = auctionSystem.createBidder( name, region );
+                if (newBidder == null) {
+                    System.out.println("null returned for bidder");
+                } else {
+                    System.out.println("Bidder returned with id " + newBidder.getBidderId() + " created.  Refer to it as bidder " + (1 + definedBidders.size()));
+                    definedBidders.add(newBidder);
+                }
+            } else if (userCommand.equalsIgnoreCase(changeLotCommand)) {
+                int lotNum = userInput.nextInt();
+                String type = userInput.next();
+                int[] params = {};
+                int newType = -1;
 
-            userInput.close();
-        }
+                switch (type) {
+                    case "regular" -> {
+                        params = new int[0];
+                        newType = 0;
+                    }
+                    case "reserve" -> {
+                        params = new int[1];
+                        params[0] = userInput.nextInt();
+                        newType = 1;
+                    }
+                    case "dualmin" -> {
+                        params = new int[3];
+                        params[0] = userInput.nextInt();
+                        params[1] = userInput.nextInt();
+                        params[2] = userInput.nextInt();
+                        newType = 2;
+                    }
+                    default -> System.out.println("Lot type not recognized");
+                }
+
+                getEndingString(userInput);
+
+                if (newType != -1) {
+                    boolean outcome = auctionSystem.changeLot(lotNum, newType, params);
+                    System.out.println( "Returned boolean value: " + outcome);
+                }
+
+
+            } else if (userCommand.equalsIgnoreCase(auctionStatusCommand)) {
+                String theStatus = auctionSystem.auctionStatus();
+                getEndingString(userInput);
+
+                if (theStatus == null) {
+                        System.out.println("null returned for status string");
+                    } else {
+                        System.out.println("Returned string:\n"+ theStatus);
+                    }
+            } else if (userCommand.equalsIgnoreCase(placeBidCommand)) {
+                int lotNumber = userInput.nextInt();
+                int bidderNumber = userInput.nextInt();
+                int bid = userInput.nextInt();
+
+                // Clean up the end of the line
+
+                getEndingString(userInput);
+
+                // Call the method
+
+                intOutcome = auctionSystem.placeBid( lotNumber, definedBidders.get( bidderNumber-1 ).getBidderId(), bid );
+                System.out.println(userCommand + " outcome " + intOutcome);
+            } else if (userCommand.equalsIgnoreCase(feesOwedCommand)) {
+                getEndingString(userInput);
+
+                String owed = auctionSystem.feesOwed();
+
+                System.out.println( "Returned string:\n" + owed );
+            } else if (userCommand.equalsIgnoreCase(openAuctionCommand)) {
+                int auctionNumber = userInput.nextInt();
+                getEndingString(userInput);
+
+                boolean opened = definedAuctions.get( auctionNumber-1 ).openAuction();
+
+                System.out.println( "Returned boolean value: " + opened );
+            } else if (userCommand.equalsIgnoreCase(closeAuctionCommand)) {
+                int auctionNumber = userInput.nextInt();
+                getEndingString(userInput);
+
+                boolean closed = definedAuctions.get( auctionNumber-1 ).closeAuction();
+
+                System.out.println( "Returned boolean value: " + closed );
+            } else if (userCommand.equalsIgnoreCase(winningBidsCommand)) {
+                int auctionNumber = userInput.nextInt();
+                getEndingString(userInput);
+
+                String theBids = definedAuctions.get( auctionNumber-1 ).winningBids();
+
+                System.out.println( "Returned string:\n" + theBids );
+            } else if (userCommand.equalsIgnoreCase(helpCommand)) {
+                printUsage();
+            } else if (userCommand.equalsIgnoreCase(quitCommand)) {
+                System.out.println(userCommand);
+            } else {
+                System.out.println("Bad command: " + userCommand);
+            }
+        } while (!userCommand.equalsIgnoreCase("quit"));
+
+        // The user is done so close the stream of user input before ending.
+
+        userInput.close();
     }
 }

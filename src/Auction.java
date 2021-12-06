@@ -54,25 +54,19 @@ public class Auction {
     }
 
     public boolean openAuction( ) {
-        boolean opened = false;
-
         if (state == NewAuction) {
             state = OpenAuction;
-            opened = true;
+            return true;
         }
-
-        return opened;
+        return false;
     }
 
     public boolean closeAuction( ) {
-        boolean closed = false;
-
         if (state == OpenAuction) {
             state = ClosedAuction;
-            closed = true;
+            return true;
         }
-
-        return closed;
+        return false;
     }
 
     public String winningBids( ) {

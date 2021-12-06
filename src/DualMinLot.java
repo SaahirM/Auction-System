@@ -1,9 +1,7 @@
-import java.util.HashMap;
-
 public class DualMinLot extends Lot {
-    private int incrementLimit;
-    private int minInc1;
-    private int minInc2;
+    private final int incrementLimit;
+    private final int minInc1;
+    private final int minInc2;
 
     // Type of lot (so it is not confused with other types of lots)
     public final static int lotType = 2;

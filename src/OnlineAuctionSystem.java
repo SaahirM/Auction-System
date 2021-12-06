@@ -1,20 +1,19 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 
 public class OnlineAuctionSystem {
     // The state of all the context for the auction system
-    private ArrayList<Auction> auctions = null;  // all the auctions
-    private HashMap<Integer, Bidder> bidders = null;    // all the bidders
-    private LotFactory theLotFactory = null; // produces (unique) lots for auctions
-    private HashMap<Integer, Lot> lots = null;  // all the lots among the auctions
+    private final ArrayList<Auction> auctions;  // all the auctions
+    private HashMap<Integer, Bidder> bidders;    // all the bidders
+    private final LotFactory theLotFactory; // produces (unique) lots for auctions
+    private final HashMap<Integer, Lot> lots;  // all the lots among the auctions
 
     public OnlineAuctionSystem( ) {
         // Create places to store all fo the auctions, all of the bidders, and all of the auction lots.
 
-        auctions = new ArrayList<Auction>();
-        bidders = new HashMap<Integer, Bidder>();
+        auctions = new ArrayList<>();
+        bidders = new HashMap<>();
         theLotFactory = new LotFactory();
         lots = theLotFactory.getAllLots();
     }
@@ -22,7 +21,7 @@ public class OnlineAuctionSystem {
     public Auction createAuction( String auctionName, int firstLotNumber,
             int lastLotNumber, int minBidIncrement, String region )
             throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
-        Auction theAuction = null;
+        Auction theAuction;
 
         HashMap<Integer, Lot> auctionLots = theLotFactory.createLots(firstLotNumber, lastLotNumber);
         theAuction = new Auction(auctionLots, auctionName, minBidIncrement, region);
@@ -68,33 +67,29 @@ public class OnlineAuctionSystem {
     }
 
     public String auctionStatus( ) {
-        String status = "";
-        Auction auction = null;
+        StringBuilder status = new StringBuilder();
 
 	    // Gather the status information from each of the individual auctions that we know about
 
-        Iterator<Auction> iterate = auctions.iterator();
-
-        while (iterate.hasNext()) {
-            auction = iterate.next();
+        for (Auction auction : auctions) {
 
             // The status line is the auction name, the state, and the total bids, separated by tabs and ending with
             // a carriage return.
 
-            status = status + auction.getAuctionName() + "\t";
+            status.append(auction.getAuctionName()).append("\t");
 
             if (auction.auctionIsOpen()) {
-                status = status + "open\t";
+                status.append("open\t");
             } else if (auction.auctionIsClosed()) {
-                status = status + "closed\t";
+                status.append("closed\t");
             } else {
-                status = status + "new\t";
+                status.append("new\t");
             }
 
-            status = status + auction.auctionBidTotal() + "\n";
+            status.append(auction.auctionBidTotal()).append("\n");
         }
 
-        return status;
+        return status.toString();
     }
 
     public int placeBid( int lotNumber, int bidderId, int bid ) {
