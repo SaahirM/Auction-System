@@ -135,4 +135,36 @@ class InputValidation {
             assertEquals("Trying to bid non-positive amount: 0", e.getMessage());
         }
     }
+
+    @Test
+    public void replaceLot() {
+        LotFactory lotFactory = new LotFactory();
+        Auction auction = null;
+        Lot newLot = null;
+
+        try {
+            HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 15);
+            auction = new Auction(lotList1, "auction", 1, null);
+            newLot = lotFactory.changeLotType(lotList1, 10, 0, new int[0]);
+        } catch (Exception e) {
+            fail("Constructing auction should not have thrown exception");
+        }
+
+        try {
+            auction.replaceLot(null, 10);
+        } catch(NullPointerException e) {
+            assertEquals("Lot is null", e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            auction.replaceLot(newLot, 5);
+        } catch(IndexOutOfBoundsException e) {
+            assertEquals("lot doesn't belong to this auction", e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+    }
 }

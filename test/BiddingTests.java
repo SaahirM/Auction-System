@@ -147,11 +147,6 @@ class BiddingTests {
 
     }
 
-
-
-
-
-
     @Test
     void PriorBidBelowMin() {
         LotFactory lotFactory = new LotFactory();

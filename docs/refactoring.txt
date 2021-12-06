@@ -2,9 +2,12 @@ Class-Implementation & Class-Interface Refactoring
 
 - Push creation-of-lots process from Auction to LotFactory
     + also push validation of lot numbers (no overlap) from OnlineAuctionSystem to Lotfactory
+
 - Pull placeBid() action from Lot to Bidder
     + also pull validating bidderID from Lot.placeBid() to OnlineAuctionSystem
+
 - Extract checkBid() code to a separate method in Lot for subclasses to override
+
 
 Recommended Refactoring
 
@@ -12,5 +15,10 @@ Recommended Refactoring
 bidder's region outside Bidder class (to OnlineAuctionSystem?)
     -> so Bidder doesn't get access to auctions it shouldn't see
 
-- Create separate interface for Lot
+- Create separate Lot interface for non-Bidder classes
     -> so other classes can't access its placeBid() method
+
+- Create seperate BidderWithRegion and AuctionWithRegion subclasses for
+Bidder and Auction respectively
+    -> to handle special cases, and allow for future flexibility with
+    other types of Bidders or Auctions
