@@ -57,8 +57,7 @@ public class OnlineAuctionSystem {
 
         try {
             Auction auction = lots.get(lotNum).getAuction();
-            theLotFactory.changeLotType(lots, lotNum, lotType, args);
-            Lot newLot = lots.get(lotNum);
+            Lot newLot = theLotFactory.changeLotType(lots, lotNum, lotType, args);
             auction.replaceLot(newLot, lotNum);
         } catch (Lot.AuctionAlreadySetException | LotFactory.LotInUseException e) {
             return false;

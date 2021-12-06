@@ -1,5 +1,4 @@
-import java.util.Map;
-import java.util.HashMap;
+import java.util.InputMismatchException;
 
 public class Lot {
     // Outcomes of placing a bid.  Making constants available outside the class so others understand the return codes
@@ -12,7 +11,7 @@ public class Lot {
     public final static int lotType = 0;
 
     // Context about this lot
-    protected int lotNumber = 0;
+    protected int lotNumber;
     protected int winningBidder = 0;
     protected int topBid = 0;
     protected int minBidIncrement = 0;
@@ -20,29 +19,21 @@ public class Lot {
     // Context about the environment in which the lot belongs
     private Auction theAuction = null;      // The auction to which the lot belongs
 
-    // Helper arrays for the class
-    private Map<Boolean, String> winString = null;
-
-    public class AuctionAlreadySetException extends Exception {
+    public static class AuctionAlreadySetException extends Exception {
         public AuctionAlreadySetException(String message) {
             super(message);
         }
     }
 
     public Lot( int lotNumber ) {
-        if (lotNumber > 0) {
-            //Cache the information for the lot.
-            this.lotNumber = lotNumber;
-
-            // Load some generic naming that we'll use when someone wins or loses the lot bid.
-            winString = new HashMap<Boolean, String>();
-            winString.put( true, "winning" );
-            winString.put( false, "losing" );
+        if (lotNumber <= 0) {
+            throw new InputMismatchException("lot number must be positive");
         }
+        this.lotNumber = lotNumber;
     }
 
     /**
-     * Links this lot to the passed auction
+     * Links this lot to the passed auction (if not already linked to another auction)
      * @param auction Auction to link to
      */
     public void setAuction(Auction auction) throws AuctionAlreadySetException {
@@ -72,6 +63,13 @@ public class Lot {
         return lotNumber + "\t" + topBid + "\t" + winningBidder + "\n";
     }
 
+    /**
+     * Checks if bid is appropriate and returns a response.
+     * Assumes it is called only by a Bidder object
+     * @param bid amount being bid
+     * @param bidder Bidder doing the bidding
+     * @return a bid response (see class constants)
+     */
     public int placeBid( int bid, Bidder bidder ) {
         assert (bid > 0) : "Bid is negative";
         assert (bidder != null) : "Bidder is null";
@@ -97,6 +95,13 @@ public class Lot {
         return outcome;
     }
 
+    /**
+     * For updating winningBids/IDs/etc once a bid is validated.
+     * Overwritten by subclasses if winning bid is decided differently
+     * @param bid amount being bid
+     * @param bidderId ID of bidder
+     * @return bid response
+     */
     protected int checkBid(int bid, int bidderId) {
         // If the current winner is re-bidding then it's just to increase the current reserve bid
         int outcome = BidAcceptableNotWinning;
@@ -120,6 +125,7 @@ public class Lot {
     }
 
     public boolean isClosed() {
+        // Assumes new auctions have closed lots
         return (theAuction == null) || (!theAuction.auctionIsOpen());
     }
 }

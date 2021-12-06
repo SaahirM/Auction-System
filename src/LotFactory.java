@@ -2,24 +2,33 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 
 public class LotFactory {
-    HashMap<Integer, Lot> allLots = new HashMap<>();
+    HashMap<Integer, Lot> allLots;
 
-    //Exception thrown when lot ranges not unique
-    public class UsedLotRangeException extends Exception {
+    // Exception thrown when lot ranges not unique
+    public static class UsedLotRangeException extends Exception {
         public UsedLotRangeException(String message) {
             super(message);
         }
     }
-    public class LotInUseException extends Exception {
+    // Exception thrown when a bidder has already bid on a lot, and it can't be changed
+    public static class LotInUseException extends Exception {
         public LotInUseException(String message) {
             super(message);
         }
     }
 
     public LotFactory() {
-        // empty constructor
+        allLots = new HashMap<>();
     }
 
+    /**
+     * Creates the HashMap of unique lots for an auction to use
+     * @param firstLotNum first lot number in range of lots to be created
+     * @param lastLotNum last lot number in range of lots to be created
+     * @return lots HashMap of unique lots
+     * @throws UsedLotRangeException if another auction is using at least one
+     *                               of these lots
+     */
     public HashMap<Integer, Lot> createLots(int firstLotNum, int lastLotNum)
                                             throws UsedLotRangeException {
         // Validate lot nums
@@ -45,7 +54,18 @@ public class LotFactory {
         return auctionLots;
     }
 
-    public void changeLotType(HashMap<Integer, Lot> auctionLots, int lotNum,
+    /**
+     * Changes a specific lot in an auction's HashMap of lots. The auction must
+     * still manually link itself to the returned Lot (using Auction.replaceLot())
+     * @param auctionLots The auction's HashMap of lots
+     * @param lotNum the specific lot number
+     * @param newType What type to replace it with.
+*                     Must be Lot.lotType (or one of its subclasses)
+     * @param args Arguments to pass to the new Lot's constructor
+     * @return newLot the created lot
+     * @throws LotInUseException if this lot number has already been bid on
+     */
+    public Lot changeLotType(HashMap<Integer, Lot> auctionLots, int lotNum,
                               int newType, int[] args) throws LotInUseException {
         if (auctionLots == null) {
             throw new NullPointerException("list of lots is null");
@@ -74,6 +94,7 @@ public class LotFactory {
         }
         auctionLots.put(lotNum, newLot);
         allLots.put(lotNum, newLot);
+        return newLot;
     }
 
     public HashMap<Integer, Lot> getAllLots() {

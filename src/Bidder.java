@@ -52,6 +52,12 @@ public class Bidder {
         return owed;
     }
 
+    /**
+     * Makes this bidder place a bid on a lot
+     * @param lot lot to place bid on
+     * @param amount amount to bid
+     * @return bid response from Lot
+     */
     public int placeBidOn(Lot lot, int amount) {
         if (lot == null) {
             throw new NullPointerException("Passed Lot is null");

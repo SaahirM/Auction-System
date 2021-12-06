@@ -16,7 +16,7 @@ public class Auction {
     private final String region;
 
     // Context surrounding this auction
-    private final HashMap<Integer, Lot> lotSet;    // All the lots available
+    private final HashMap<Integer, Lot> lotSet;    // This auction's lots
 
     // Helper variables for the class
     private final Map<Integer, String> naming;
@@ -48,7 +48,19 @@ public class Auction {
         }
     }
 
+    /**
+     * Adds the passed lot to this auction's set of lots. Also links lot to this auction
+     * @param lot lot to be added
+     * @param lotNum lot's lot number
+     * @throws Lot.AuctionAlreadySetException if another auction is using the passed lot
+     */
     public void replaceLot(Lot lot, int lotNum) throws Lot.AuctionAlreadySetException {
+        if (lot == null) {
+            throw new NullPointerException("Lot is null");
+        } else if (lotSet.get(lotNum) == null) {
+            throw new IndexOutOfBoundsException("lot doesn't belong to this auction");
+        }
+
         lotSet.put(lotNum, lot);
         lot.setAuction(this);
     }
