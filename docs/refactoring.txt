@@ -1,11 +1,13 @@
 Class-Implementation & Class-Interface Refactoring
 
-- Pull creation-of-lots process from Auction to OnlineAuctionSystem
-- Push validation of lot numbers (no overlap) from OnlineAuctionSystem to Lotfactory
+- Push creation-of-lots process from Auction to LotFactory
+    + Push validation of lot numbers (no overlap) from OnlineAuctionSystem to Lotfactory
 - ? Why bidder have all lots? Other way to calculate
--
+- Pull placeBid() action from Lot to Bidder
+    + Pull validating bidderID from Lot.placeBid() to OnlineAuctionSystem
 
 Recommended Refactoring
 
--
+- Pull the process of checking all auctions to see which ones are in a
+bidder's region outside Bidder class (to OnlineAuctionSystem?)
 -

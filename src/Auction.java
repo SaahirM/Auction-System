@@ -42,6 +42,11 @@ public class Auction {
         }
     }
 
+    public void replaceLot(Lot lot, int lotNum) throws Lot.AuctionAlreadySetException {
+        lotSet.put(lotNum, lot);
+        lot.setAuction(this);
+    }
+
     public boolean openAuction( ) {
         boolean opened = false;
 

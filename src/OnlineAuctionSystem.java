@@ -52,9 +52,18 @@ public class OnlineAuctionSystem {
         return theBidder;
     }
 
-    public void changeLot(int lotNum, int lotType,
-                          int[] args) throws LotFactory.LotInUseException {
-        theLotFactory.changeLotType(lots, lotNum, lotType, args);
+    public boolean changeLot(int lotNum, int lotType,
+                          int[] args) {
+
+        try {
+            Auction auction = lots.get(lotNum).getAuction();
+            theLotFactory.changeLotType(lots, lotNum, lotType, args);
+            Lot newLot = lots.get(lotNum);
+            auction.replaceLot(newLot, lotNum);
+        } catch (Lot.AuctionAlreadySetException | LotFactory.LotInUseException e) {
+            return false;
+        }
+        return true;
     }
 
     public String auctionStatus( ) {

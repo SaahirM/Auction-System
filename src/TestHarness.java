@@ -160,11 +160,8 @@ public class TestHarness {
                     ignoredString = getEndingString(userInput);
 
                     if (newType != -1) {
-                        try {
-                            auctionSystem.changeLot(lotNum, newType, params);
-                        } catch (LotFactory.LotInUseException e) {
-                            System.out.println(e.getMessage());
-                        }
+                        boolean outcome = auctionSystem.changeLot(lotNum, newType, params);
+                        System.out.println( "Returned boolean value: " + outcome);
                     }
 
 
