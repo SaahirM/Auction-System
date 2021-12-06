@@ -182,7 +182,7 @@ class BiddingTests {
     }
 
     @Test
-    void bidTest() {
+    void bidTest() throws LotFactory.LotInUseException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
         Auction newAuction = null;
@@ -219,6 +219,19 @@ class BiddingTests {
         assertEquals("theAuction\topen\t15\n", newAuction.getStatus());
         assertEquals(3, bidder1.placeBidOn(lot10, 55));
         assertEquals("theAuction\topen\t70\n", newAuction.getStatus());
+
+        // Bid on Reserve and DualMin lots
+        int[] rParams = {5};
+        Lot newReserveLot = lotFactory.changeLotType(lots, 3, 1, rParams);
+        int[] dParams = {10, 2, 5};
+        Lot newDualMinLot = lotFactory.changeLotType(lots, 4, 2, dParams);
+        newAuction.replaceLot(newReserveLot, 3);
+        newAuction.replaceLot(newDualMinLot, 4);
+
+        assertEquals(3, bidder1.placeBidOn(newReserveLot, 10));
+        assertEquals("theAuction\topen\t80\n", newAuction.getStatus());
+        assertEquals(3, bidder1.placeBidOn(newDualMinLot, 20));
+        assertEquals("theAuction\topen\t100\n", newAuction.getStatus());
 
     }
 

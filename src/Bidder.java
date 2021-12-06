@@ -6,8 +6,7 @@ public class Bidder {
     private final int bidderNumber;
     private final String bidderName;
     private final String bidderRegion;
-
-    // Context that surrounds this bidder
+    // lots where this bidder has bid
     private final ArrayList<Lot> lots = new ArrayList<>();
 
     public Bidder( String bidderName, int bidderId, String region ) {
