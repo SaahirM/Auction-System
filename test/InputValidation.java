@@ -10,43 +10,95 @@ class InputValidation {
     void createAuction() {
 
         LotFactory lotFactory = new LotFactory();
+        Auction test1 = null;
+        Auction test2 = null;
+        Auction test3 = null;
+        Auction test4 = null;
 
         try {
             HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 15);
-            Auction test1 = new Auction( lotList1, null, 1, null);
-            assertFalse( test1.auctionIsReady() );
-
-            HashMap<Integer, Lot> lotList2 = lotFactory.createLots(16, 20);
-            Auction test2 = new Auction( lotList2, "", 1, null);
-            assertFalse( test2.auctionIsReady() );
-
-            HashMap<Integer, Lot> lotList3 = lotFactory.createLots(21, 25);
-            Auction test3 = new Auction( lotList3, "test3", -1, null);
-            assertFalse( test3.auctionIsReady() );
-
-            HashMap<Integer, Lot> lotList4 = lotFactory.createLots(26, 30);
-            Auction test4 = new Auction( lotList4, "test4", 0, null);
-            assertFalse( test4.auctionIsReady() );
-
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("Creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
+            test1 = new Auction(lotList1, null, 1, null);
+        } catch (NullPointerException e) {
+            assertEquals("Null param(s) passed", e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
         }
+
+        try {
+            HashMap<Integer, Lot> lotList2 = lotFactory.createLots(16, 20);
+            test2 = new Auction(lotList2, "", 1, null);
+        } catch (InputMismatchException e) {
+            assertEquals("""
+                            Bad param(s) passed
+                            Min increment (1) must be positive
+                            Auction name () cannot be empty"""
+                    , e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            HashMap<Integer, Lot> lotList3 = lotFactory.createLots(21, 25);
+            test3 = new Auction(lotList3, "test3", -1, null);
+        } catch (InputMismatchException e) {
+            assertEquals("""
+                            Bad param(s) passed
+                            Min increment (-1) must be positive
+                            Auction name (test3) cannot be empty"""
+                    , e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        try {
+            HashMap<Integer, Lot> lotList4 = lotFactory.createLots(26, 30);
+            test4 = new Auction(lotList4, "test4", 0, null);
+        } catch (InputMismatchException e) {
+            assertEquals("""
+                            Bad param(s) passed
+                            Min increment (0) must be positive
+                            Auction name (test4) cannot be empty"""
+            , e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+
+        assertNull( test1 );
+        assertNull( test2 );
+        assertNull( test3 );
+        assertNull( test4 );
     }
 
     @Test
     void createBidder() {
-        Bidder bidder1 = new Bidder(null, 5, null );
-        assertFalse( bidder1.bidderIsReady() );
+        Bidder bidder1 = null;
+        Bidder bidder2 = null;
 
-        Bidder bidder2 = new Bidder("", 6, null );
-        assertFalse( bidder2.bidderIsReady() );
+        try {
+            bidder1 = new Bidder(null, 5, null);
+        } catch (NullPointerException e) {
+            assertEquals("Null bidder name passed", e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+        assertNull( bidder1 );
+
+        try {
+            bidder2 = new Bidder("", 6, null);
+        } catch (InputMismatchException e) {
+            assertEquals("""
+                            Bad param(s) passed
+                            Bidder ID (6) must be positive
+                            Bidder Name () cannot be empty"""
+            , e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception thrown");
+        }
+        assertNull( bidder2 );
     }
 
     @Test
     void placeBid() {
-        HashMap<Integer, Bidder> bidderList = new HashMap<>();
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lotList1 = null;
         HashMap<Integer, Lot> lotList2 = null;
@@ -71,7 +123,6 @@ class InputValidation {
         }
 
         Bidder bidder1 = new Bidder("Alice ", 1, null );
-        bidderList.put(1, bidder1);
 
         // Make bids with bad parameters.  Only one parameter is bad at a time.
         try {

@@ -32,12 +32,13 @@ public class OnlineAuctionSystem {
     }
 
     public Bidder createBidder( String bidderName, String region ) {
-        Bidder theBidder = null;
+        Bidder theBidder;
         int id = 1 + bidders.size();
 
-        // Create the bidder
-        theBidder = new Bidder(bidderName, id, region);
-        if (theBidder.bidderIsReady()) {
+        try {
+            // Create the bidder
+            theBidder = new Bidder(bidderName, id, region);
+
             // Make sure we have space to store the bidder information
 
             if (bidders == null) {
@@ -45,7 +46,7 @@ public class OnlineAuctionSystem {
             }
 
             bidders.put(id, theBidder);
-        } else {
+        } catch (Exception e){
             theBidder = null;
         }
 

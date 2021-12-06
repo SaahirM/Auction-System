@@ -8,25 +8,24 @@ class DataFlowTests {
     void createAuctionTests() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        try {
-            lots = lotFactory.createLots(2, 3);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        }
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
 
         Auction theAuction = null;
         try {
+            lots = lotFactory.createLots(2, 3);
             theAuction = new Auction( lots, "First", 1, null );
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
+        } catch (Exception e) {
+            fail("Constructing Auction should not have thrown an exception");
         }
-        Bidder theBidder = new Bidder("someone", 1, null );
 
-        assertTrue( theAuction.auctionIsReady() );
-        assertTrue( theBidder.bidderIsReady() );
+        Bidder theBidder = null;
+        try {
+            theBidder = new Bidder("someone", 1, null );
+        } catch (Exception e) {
+            fail("Constructor should not have thrown an exception");
+        }
 
-        bidders.put(1, theBidder);
+        assertNotNull( theAuction );
+        assertNotNull( theBidder );
 
         // Try to bid on a new auction.  Should fail.
 
@@ -60,11 +59,11 @@ class DataFlowTests {
         Auction theAuction = null;
         try {
             theAuction = new Auction( lots, "First", 1, null );
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
+        } catch (Exception e) {
+            fail("Constructor should not have thrown an exception");
         }
 
-        assertTrue( theAuction.auctionIsReady() );
+        assertNotNull( theAuction );
 
         //  Try the options on an auction that is new
 

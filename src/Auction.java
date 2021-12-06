@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public class Auction {
@@ -9,36 +10,41 @@ public class Auction {
     private static final int ClosedAuction = 3;
 
     // Context about this auction
-    private String auctionName = null;
-    private int minIncrement = 0;
+    private final String auctionName;
+    private final int minIncrement;
     private int state = NewAuction;
-    private String region;
+    private final String region;
 
     // Context surrounding this auction
-    private HashMap<Integer, Lot> lotSet = null;    // All the lots available
+    private final HashMap<Integer, Lot> lotSet;    // All the lots available
 
     // Helper variables for the class
-    private Map<Integer, String> naming = null;
-    private boolean auctionReady = false;
+    private final Map<Integer, String> naming;
 
     public Auction( HashMap<Integer, Lot> auctionLots, String auctionName, int minBidIncrement, String region ) throws Lot.AuctionAlreadySetException {
-        if ((auctionName != null) && (auctionName.length() > 0) && (minBidIncrement > 0)) {
-            this.auctionName = auctionName;
-            this.minIncrement = minBidIncrement;
-            this.lotSet = auctionLots;
-            this.region = region;
+        if (auctionLots == null || auctionName == null) {
+            throw new NullPointerException("Null param(s) passed");
+        } else if (minBidIncrement <= 0 || auctionName.length() == 0) {
+            throw new InputMismatchException(
+                    "Bad param(s) passed" +
+                    "\nMin increment (" + minBidIncrement + ") must be positive" +
+                    "\nAuction name (" + auctionName + ") cannot be empty"
+            );
+        }
 
-            naming = new HashMap<Integer, String>();
-            naming.put( NewAuction, "new" );
-            naming.put( OpenAuction, "open" );
-            naming.put( ClosedAuction, "closed" );
+        this.auctionName = auctionName;
+        this.minIncrement = minBidIncrement;
+        this.lotSet = auctionLots;
+        this.region = region;
 
-            // Link the lots to this auction
-            for (Lot lot : lotSet.values()) {
-                lot.setAuction(this);
-            }
+        naming = new HashMap<>();
+        naming.put( NewAuction, "new" );
+        naming.put( OpenAuction, "open" );
+        naming.put( ClosedAuction, "closed" );
 
-            auctionReady = true;
+        // Link the lots to this auction
+        for (Lot lot : lotSet.values()) {
+            lot.setAuction(this);
         }
     }
 
@@ -70,7 +76,7 @@ public class Auction {
     }
 
     public String winningBids( ) {
-        StringBuilder bids = null;
+        StringBuilder bids;
 
         bids = new StringBuilder();
         for(Lot lot : lotSet.values()) {
@@ -85,7 +91,7 @@ public class Auction {
     }
 
     public String getStatus() {
-        String status = "";
+        String status;
         int bids = 0;
 
         // Find out all the bids
@@ -111,10 +117,6 @@ public class Auction {
         }
 
         return bids;
-    }
-
-    public boolean auctionIsReady() {
-        return auctionReady;
     }
 
     public boolean auctionIsOpen() {

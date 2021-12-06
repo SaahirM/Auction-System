@@ -9,7 +9,6 @@ class BiddingTests {
     void NoPriorNoReserveMinBidWins() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -22,7 +21,6 @@ class BiddingTests {
         }
 
         Bidder newBidder = new Bidder("person1", 1, null);
-        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -35,7 +33,6 @@ class BiddingTests {
     void NoPriorBelowMinBid() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -47,7 +44,6 @@ class BiddingTests {
             fail("Unexpected exception");
         }
         Bidder newBidder = new Bidder("person1", 1, null);
-        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -62,7 +58,6 @@ class BiddingTests {
     void NoPriorOverbidWins() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -74,7 +69,6 @@ class BiddingTests {
             fail("Unexpected exception");
         }
         Bidder newBidder = new Bidder("person1", 1, null);
-        bidders.put(1, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -90,7 +84,6 @@ class BiddingTests {
     void PriorBidBelowCurrentBid() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -104,10 +97,6 @@ class BiddingTests {
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
-
-        bidders.put(1, oldBidder);
-        bidders.put(2, middleBidder);
-        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -128,7 +117,6 @@ class BiddingTests {
     void PriorBidBeatMaxBid() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -142,10 +130,6 @@ class BiddingTests {
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
-
-        bidders.put(1, oldBidder);
-        bidders.put(2, middleBidder);
-        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -172,7 +156,6 @@ class BiddingTests {
     void PriorBidBelowMin() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
@@ -186,10 +169,6 @@ class BiddingTests {
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
-
-        bidders.put(1, oldBidder);
-        bidders.put(2, middleBidder);
-        bidders.put(3, newBidder);
 
         assertTrue(newAuction.openAuction());
 
@@ -211,24 +190,25 @@ class BiddingTests {
     void bidTest() {
         LotFactory lotFactory = new LotFactory();
         HashMap<Integer, Lot> lots = null;
-        HashMap<Integer, Bidder> bidders = new HashMap<>();
         Auction newAuction = null;
 
         try {
             lots = lotFactory.createLots(1, 10);
             newAuction = new Auction( lots, "theAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
+        } catch (Exception e) {
+            fail("Constructing Auction should not have thrown an exception");
         }
-        assertTrue( newAuction.auctionIsReady() );
+        assertNotNull( newAuction );
 
         // Check with a bid on a single lot
 
-        Bidder bidder1 = new Bidder("newBidder", 1, null);
-        assertTrue(bidder1.bidderIsReady());
-        bidders.put(1, bidder1);
+        Bidder bidder1 = null;
+        try {
+            bidder1 = new Bidder("newBidder", 1, null);
+        } catch (Exception e) {
+            fail("Constructor should not have thrown an exception");
+        }
+        assertNotNull(bidder1);
 
         Lot lot1 = lots.get( 1 );
         Lot lot2 = lots.get( 2 );

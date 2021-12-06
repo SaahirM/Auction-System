@@ -1,26 +1,29 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Map;
 
 public class Bidder {
     // Context about this bidder
-    private int bidderNumber = 0;
-    private String bidderName = null;
+    private int bidderNumber;
+    private String bidderName;
     private String bidderRegion;
 
     // Context that surrounds this bidder
     private ArrayList<Lot> lots = new ArrayList<>();
 
-    // State of readiness of the class
-    private boolean bidderReady = false;
-
     public Bidder( String bidderName, int bidderId, String region ) {
-        if ((bidderId > 0) && (bidderName != null) && (bidderName.length() > 0)) {
-            this.bidderNumber = bidderId;
-            this.bidderName = bidderName;
-            this.bidderRegion = region;
-            bidderReady = true;
+        if (bidderName == null) {
+            throw new NullPointerException("Null bidder name passed");
+        } else if (bidderId <= 0 || bidderName.length() == 0) {
+            throw new InputMismatchException(
+                    "Bad param(s) passed" +
+                    "\nBidder ID (" + bidderId + ") must be positive" +
+                    "\nBidder Name (" + bidderName + ") cannot be empty"
+            );
         }
+
+        this.bidderNumber = bidderId;
+        this.bidderName = bidderName;
+        this.bidderRegion = region;
     }
 
     public int getBidderId( ) {
@@ -32,7 +35,7 @@ public class Bidder {
     }
 
     public String feesOwed() {
-        String owed = "";
+        String owed;
         int won = 0;
         int cost = 0;
 
@@ -59,10 +62,6 @@ public class Bidder {
             lots.add(lot);
             return lot.placeBid(amount, this);
         }
-    }
-
-    public boolean bidderIsReady() {
-        return bidderReady;
     }
 
     /**
