@@ -98,29 +98,16 @@ class InputValidation {
     }
 
     @Test
-    void placeBid() {
+    void placeBid() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lotList1 = null;
-        HashMap<Integer, Lot> lotList2 = null;
-        try {
-            lotList1 = lotFactory.createLots(1, 3);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        }
-        try {
-            lotList2 = lotFactory.createLots(4, 7);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        }
+
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(1, 3);
+        HashMap<Integer, Lot> lotList2 = lotFactory.createLots(4, 7);
 
         // Load a basic auction to ensure the failure isn't from having no auction data
 
-        try {
-            Auction auction1 = new Auction( lotList1, "first", 10, null );
-            Auction auction2 = new Auction( lotList2, "second", 20, null );
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        Auction auction1 = new Auction( lotList1, "first", 10, null );
+        Auction auction2 = new Auction( lotList2, "second", 20, null );
 
         Bidder bidder1 = new Bidder("Alice ", 1, null );
 
@@ -129,7 +116,8 @@ class InputValidation {
             assertEquals(0, bidder1.placeBidOn(lotList1.get(1), -1));
         } catch (InputMismatchException e) {
             assertEquals("Trying to bid non-positive amount: -1", e.getMessage());
-        }try {
+        }
+        try {
             assertEquals(0, bidder1.placeBidOn(lotList1.get(1), 0));
         } catch (InputMismatchException e) {
             assertEquals("Trying to bid non-positive amount: 0", e.getMessage());
@@ -137,18 +125,12 @@ class InputValidation {
     }
 
     @Test
-    public void replaceLot() {
+    public void replaceLot() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException, LotFactory.LotInUseException {
         LotFactory lotFactory = new LotFactory();
-        Auction auction = null;
-        Lot newLot = null;
 
-        try {
-            HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 15);
-            auction = new Auction(lotList1, "auction", 1, null);
-            newLot = lotFactory.changeLotType(lotList1, 10, 0, new int[0]);
-        } catch (Exception e) {
-            fail("Constructing auction should not have thrown exception");
-        }
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 15);
+        Auction auction = new Auction(lotList1, "auction", 1, null);
+        Lot newLot = lotFactory.changeLotType(lotList1, 10, 0, new int[0]);
 
         try {
             auction.replaceLot(null, 10);

@@ -6,39 +6,26 @@ import java.util.HashMap;
 
 class BoundaryTests {
     @Test
-    void createAuction() {
+    void createAuction() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
 
-        HashMap<Integer, Lot> lotList1;
-        HashMap<Integer, Lot> lotList2;
-        HashMap<Integer, Lot> lotList3;
-        HashMap<Integer, Lot> lotList4;
+        // Single letter auction name
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 15);
+        Auction auction1 = new Auction( lotList1, "a", 5, null);
 
-        Auction auction1 = null;
-        Auction auction2 = null;
-        Auction auction3 = null;
-        Auction auction4 = null;
+        // Longer auction names
+        // Range of lots
+        HashMap<Integer, Lot> lotList2 = lotFactory.createLots(1, 2);
+        Auction auction2 = new Auction( lotList2, "test1", 5, null);
 
-        try {
-            // Single letter auction name
-            lotList1 = lotFactory.createLots(10, 15);
-            auction1 = new Auction( lotList1, "a", 5, null);
+        // Single lot
+        HashMap<Integer, Lot> lotList3 = lotFactory.createLots(3, 3);
+        Auction auction3 = new Auction( lotList3, "test2", 5, null);
 
-            // Longer auction names
-            // Range of lots
-            lotList2 = lotFactory.createLots(1, 2);
-            auction2 = new Auction( lotList2, "test1", 5, null);
+        // Minimum bid increment
+        HashMap<Integer, Lot> lotList4 = lotFactory.createLots(5, 8);
+        Auction auction4 = new Auction( lotList4, "test3", 1, null);
 
-            // Single lot
-            lotList3 = lotFactory.createLots(3, 3);
-            auction3 = new Auction( lotList3, "test2", 5, null);
-
-            // Minimum bid increment
-            lotList4 = lotFactory.createLots(5, 8);
-            auction4 = new Auction( lotList4, "test3", 1, null);
-        } catch (Exception e) {
-            fail("Constructing Auctions should not have thrown an exception");
-        }
         assertNotNull( auction1 );
         assertNotNull( auction2 );
         assertNotNull( auction3 );
@@ -47,13 +34,7 @@ class BoundaryTests {
 
     @Test
     void createBidder() {
-        Bidder bidder1 = null;
-
-        try {
-            bidder1 = new Bidder("z", 12, null);
-        } catch (Exception e) {
-            fail("Constructor should not have thrown an exception");
-        }
+        Bidder bidder1 = new Bidder("z", 12, null);
         assertNotNull(bidder1);
     }
 }

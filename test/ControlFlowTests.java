@@ -7,27 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControlFlowTests {
 
     @Test
-    void createAuctionTests() {
+    void createAuctionTests() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
 
-        HashMap<Integer, Lot> lotList1;
-        HashMap<Integer, Lot> lotList2;
-        HashMap<Integer, Lot> lotList3;
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(2, 3);
+        Auction auction1 = new Auction(lotList1, "First", 1, null);
+        HashMap<Integer, Lot> lotList2 = lotFactory.createLots(4, 5);
+        Auction auction2 = new Auction(lotList2, "Second", 1, null);
+        HashMap<Integer, Lot> lotList3 = lotFactory.createLots(6, 7);
+        Auction auction3 = new Auction(lotList3, "Third", 1, null);
 
-        Auction auction1 = null;
-        Auction auction2 = null;
-        Auction auction3 = null;
-
-        try {
-            lotList1 = lotFactory.createLots(2, 3);
-            auction1 = new Auction(lotList1, "First", 1, null);
-            lotList2 = lotFactory.createLots(4, 5);
-            auction2 = new Auction(lotList2, "Second", 1, null);
-            lotList3 = lotFactory.createLots(6, 7);
-            auction3 = new Auction(lotList3, "Third", 1, null);
-        } catch (Exception e) {
-            fail("Constructing Auctions should not have thrown an exception");
-        }
 
         assertNotNull( auction1 );
         assertNotNull( auction2 );
@@ -36,46 +25,26 @@ class ControlFlowTests {
 
     @Test
     void createBidderTests() {
-        Bidder bidder1 = null;
-        Bidder bidder2 = null;
-        Bidder bidder3 = null;
+        Bidder bidder1 = new Bidder("Alice", 1, null);
+        Bidder bidder2 = new Bidder("Bob", 2, null );
+        Bidder bidder3 = new Bidder("Charlene", 3, null );
 
-        try {
-            bidder1 = new Bidder("Alice", 1, null);
-            bidder2 = new Bidder("Bob", 2, null );
-            bidder3 = new Bidder("Charlene", 3, null );
-        } catch (Exception e) {
-            fail("Constructors should not have thrown an exception");
-        }
         assertNotNull(bidder1);
         assertNotNull(bidder2);
         assertNotNull(bidder3);
     }
 
     @Test
-    void auctionStatusTests() {
+    void auctionStatusTests() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
 
-        HashMap<Integer, Lot> lotList1;
-        HashMap<Integer, Lot> lotList2;
-        HashMap<Integer, Lot> lotList3;
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(2, 3);
+        Auction auction1 = new Auction(lotList1, "First", 1, null);
+        HashMap<Integer, Lot> lotList2 = lotFactory.createLots(4, 5);
+        Auction auction2 = new Auction(lotList2, "Second", 1, null);
+        HashMap<Integer, Lot> lotList3 = lotFactory.createLots(6, 7);
+        Auction auction3 = new Auction(lotList3, "Third", 1, null);
 
-        Auction auction1 = null;
-        Auction auction2 = null;
-        Auction auction3 = null;
-
-        try {
-            lotList1 = lotFactory.createLots(2, 3);
-            auction1 = new Auction(lotList1, "First", 1, null);
-            lotList2 = lotFactory.createLots(4, 5);
-            auction2 = new Auction(lotList2, "Second", 1, null);
-            lotList3 = lotFactory.createLots(6, 7);
-            auction3 = new Auction(lotList3, "Third", 1, null);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
 
         if (auction2.openAuction() && auction3.openAuction() && auction3.closeAuction()) {
             assertEquals("First\tnew\t0\n", auction1.getStatus());
@@ -85,19 +54,12 @@ class ControlFlowTests {
     }
 
     @Test
-    void winningBids() {
+    void winningBids() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction theAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            theAuction = new Auction(lots, "FirstAuction", 2, null);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction theAuction = new Auction(lots, "FirstAuction", 2, null);
+
         assertNotNull( theAuction );
 
         theAuction.openAuction();
@@ -129,36 +91,20 @@ class ControlFlowTests {
     }
 
     @Test
-    void feesOwed() {
+    void feesOwed() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
 
-        HashMap<Integer, Lot> lotList1 = null;
-        HashMap<Integer, Lot> lotList2 = null;
-        HashMap<Integer, Lot> lotList3 = null;
-        HashMap<Integer, Lot> lotList4 = null;
-        HashMap<Integer, Lot> lotList5 = null;
-
-        Auction auction1 = null;
-        Auction auction2 = null;
-        Auction auction3 = null;
-        Auction auction4 = null;
-        Auction auction5 = null;
-
         // Get a mix of auctions to receive bids
-        try {
-            lotList1 = lotFactory.createLots(10, 19);
-            auction1 = new Auction(lotList1, "FirstAuction", 2, null);
-            lotList2 = lotFactory.createLots(20, 29);
-            auction2 = new Auction(lotList2, "SecondAuction", 2, null);
-            lotList3 = lotFactory.createLots(30, 39);
-            auction3 = new Auction(lotList3, "ThirdAuction", 2, null);
-            lotList4 = lotFactory.createLots(40, 49);
-            auction4 = new Auction(lotList4, "FourthAuction", 2, null);
-            lotList5 = lotFactory.createLots(50, 59);
-            auction5 = new Auction(lotList5, "NewAuction", 2, null);
-        } catch (Exception e) {
-            fail("Constructing Auctions should not have thrown an exception");
-        }
+        HashMap<Integer, Lot> lotList1 = lotFactory.createLots(10, 19);
+        Auction auction1 = new Auction(lotList1, "FirstAuction", 2, null);
+        HashMap<Integer, Lot> lotList2 = lotFactory.createLots(20, 29);
+        Auction auction2 = new Auction(lotList2, "SecondAuction", 2, null);
+        HashMap<Integer, Lot> lotList3 = lotFactory.createLots(30, 39);
+        Auction auction3 = new Auction(lotList3, "ThirdAuction", 2, null);
+        HashMap<Integer, Lot> lotList4 = lotFactory.createLots(40, 49);
+        Auction auction4 = new Auction(lotList4, "FourthAuction", 2, null);
+        HashMap<Integer, Lot> lotList5 = lotFactory.createLots(50, 59);
+        Auction auction5 = new Auction(lotList5, "NewAuction", 2, null);
 
         assertNotNull( auction1 );
         assertNotNull( auction2 );
@@ -172,24 +118,13 @@ class ControlFlowTests {
         assertTrue( auction4.openAuction());
 
         // Set up some bidders too
+        Bidder bidder1 = new Bidder("Alice", 1, null); // win 0 closed, 0 open
+        Bidder bidder2 = new Bidder("Bob", 2, null); // win 0 closed, 1 open
+        Bidder bidder3 = new Bidder("Charlie", 3, null); // win 1 closed, 0 open
+        Bidder bidder4 = new Bidder("Denise", 4, null); // win 1 closed, 1 open
+        Bidder bidder5 = new Bidder("Edna", 5, null); // win many closed, 0 open
+        Bidder bidder6 = new Bidder("Frank", 6, null); // win many closed, many open
 
-        Bidder bidder1 = null;
-        Bidder bidder2 = null;
-        Bidder bidder3 = null;
-        Bidder bidder4 = null;
-        Bidder bidder5 = null;
-        Bidder bidder6 = null;
-
-        try {
-            bidder1 = new Bidder("Alice", 1, null); // win 0 closed, 0 open
-            bidder2 = new Bidder("Bob", 2, null); // win 0 closed, 1 open
-            bidder3 = new Bidder("Charlie", 3, null); // win 1 closed, 0 open
-            bidder4 = new Bidder("Denise", 4, null); // win 1 closed, 1 open
-            bidder5 = new Bidder("Edna", 5, null); // win many closed, 0 open
-            bidder6 = new Bidder("Frank", 6, null); // win many closed, many open
-        } catch (Exception e) {
-            fail("Constructor should not have thrown an exception");
-        }
 
         assertNotNull( bidder1 );
         assertNotNull( bidder2 );
@@ -249,21 +184,13 @@ class ControlFlowTests {
     }
 
     @Test
-    void lotState() {
+    void lotState() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction auction1 = null;
 
         // Get a mix of auctions to receive bids
+        HashMap<Integer, Lot>lots = lotFactory.createLots(10, 19);
+        Auction auction1 = new Auction(lots, "FirstAuction", 2, null);
 
-        try {
-            lots = lotFactory.createLots(10, 19);
-            auction1 = new Auction(lots, "FirstAuction", 2, null);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
 
         // Ensure that the state of a lot matches the state of the auction to which it belongs.
 
@@ -279,12 +206,8 @@ class ControlFlowTests {
         assertTrue( aLot.isClosed() );
 
         // Lot with no auction
-        HashMap<Integer, Lot> lotList = null;
-        try {
-            lotList = lotFactory.createLots(20, 20);
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        }
+        HashMap<Integer, Lot> lotList = lotFactory.createLots(20, 20);
+
         Lot anotherLot = lotList.get(20);
         assertTrue( anotherLot.isClosed() );
     }

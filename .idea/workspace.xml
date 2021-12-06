@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="Threw in some comments and exception cases. Also updated refactoring.txt">
+    <list default="true" id="a306a4aa-ce77-4556-b19b-e2f2331c1c4b" name="Default" comment="Implemented new lots into a test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/refactoring.txt" beforeDir="false" afterPath="$PROJECT_DIR$/docs/refactoring.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/systemtest/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/systemtest/test.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/BiddingTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BiddingTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/BoundaryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/BoundaryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ControlFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ControlFlowTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/DataFlowTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/DataFlowTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/InputValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/InputValidation.java" afterDir="false" />
     </list>
@@ -227,7 +227,7 @@
       <workItem from="1638653269370" duration="18154000" />
       <workItem from="1638736067531" duration="19880000" />
       <workItem from="1638803405422" duration="5359000" />
-      <workItem from="1638819556525" duration="3342000" />
+      <workItem from="1638819556525" duration="5554000" />
     </task>
     <task id="LOCAL-00001" summary="changed Auction and Bidder constructors throughout project to include region">
       <created>1638410011107</created>
@@ -306,7 +306,21 @@
       <option name="project" value="LOCAL" />
       <updated>1638811112711</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Implemented some tests and updated refactoring.txt">
+      <created>1638822981997</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1638822981997</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Implemented new lots into a test">
+      <created>1638833841250</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1638833841250</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -391,7 +405,9 @@
     <MESSAGE value="Updated test to match specifications" />
     <MESSAGE value="Did some minor refactoring and updated design PDF" />
     <MESSAGE value="Threw in some comments and exception cases. Also updated refactoring.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Threw in some comments and exception cases. Also updated refactoring.txt" />
+    <MESSAGE value="Implemented some tests and updated refactoring.txt" />
+    <MESSAGE value="Implemented new lots into a test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented new lots into a test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

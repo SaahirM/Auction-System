@@ -6,19 +6,11 @@ import java.util.HashMap;
 class BiddingTests {
 
     @Test
-    void NoPriorNoReserveMinBidWins() {
+    void NoPriorNoReserveMinBidWins() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 1, null );
 
         Bidder newBidder = new Bidder("person1", 1, null);
 
@@ -30,19 +22,12 @@ class BiddingTests {
     }
 
     @Test
-    void NoPriorBelowMinBid() {
+    void NoPriorBelowMinBid() throws Lot.AuctionAlreadySetException, LotFactory.UsedLotRangeException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 5, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 5, null );
+
         Bidder newBidder = new Bidder("person1", 1, null);
 
         assertTrue(newAuction.openAuction());
@@ -55,19 +40,12 @@ class BiddingTests {
     }
 
     @Test
-    void NoPriorOverbidWins() {
+    void NoPriorOverbidWins() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 1, null );
+
         Bidder newBidder = new Bidder("person1", 1, null);
 
         assertTrue(newAuction.openAuction());
@@ -81,19 +59,11 @@ class BiddingTests {
 
 
     @Test
-    void PriorBidBelowCurrentBid() {
+    void PriorBidBelowCurrentBid() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 1, null );
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
@@ -114,19 +84,12 @@ class BiddingTests {
     }
 
     @Test
-    void PriorBidBeatMaxBid() {
+    void PriorBidBeatMaxBid() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 1, null );
+
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
@@ -148,19 +111,12 @@ class BiddingTests {
     }
 
     @Test
-    void PriorBidBelowMin() {
+    void PriorBidBelowMin() throws LotFactory.UsedLotRangeException, Lot.AuctionAlreadySetException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(10, 15);
-            newAuction = new Auction( lots, "testAuction", 1, null );
-        } catch (LotFactory.UsedLotRangeException e) {
-            fail("creating unique lots should not have raised an exception");
-        } catch (Lot.AuctionAlreadySetException e) {
-            fail("Unexpected exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(10, 15);
+        Auction newAuction = new Auction( lots, "testAuction", 1, null );
+
         Bidder oldBidder = new Bidder("person1", 1, null);
         Bidder middleBidder = new Bidder("person2", 2, null);
         Bidder newBidder = new Bidder("person3", 3, null);
@@ -182,27 +138,18 @@ class BiddingTests {
     }
 
     @Test
-    void bidTest() throws LotFactory.LotInUseException, Lot.AuctionAlreadySetException {
+    void bidTest() throws LotFactory.LotInUseException, Lot.AuctionAlreadySetException, LotFactory.UsedLotRangeException {
         LotFactory lotFactory = new LotFactory();
-        HashMap<Integer, Lot> lots = null;
-        Auction newAuction = null;
 
-        try {
-            lots = lotFactory.createLots(1, 10);
-            newAuction = new Auction( lots, "theAuction", 1, null );
-        } catch (Exception e) {
-            fail("Constructing Auction should not have thrown an exception");
-        }
+        HashMap<Integer, Lot> lots = lotFactory.createLots(1, 10);
+        Auction newAuction = new Auction( lots, "theAuction", 1, null );
+
         assertNotNull( newAuction );
 
         // Check with a bid on a single lot
 
-        Bidder bidder1 = null;
-        try {
-            bidder1 = new Bidder("newBidder", 1, null);
-        } catch (Exception e) {
-            fail("Constructor should not have thrown an exception");
-        }
+        Bidder bidder1 = new Bidder("newBidder", 1, null);
+
         assertNotNull(bidder1);
 
         Lot lot1 = lots.get( 1 );
@@ -234,5 +181,4 @@ class BiddingTests {
         assertEquals("theAuction\topen\t100\n", newAuction.getStatus());
 
     }
-
 }
