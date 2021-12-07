@@ -14,17 +14,16 @@ public class DualMinLot extends Lot {
     }
 
     @Override
-    protected int checkBid(int bid, int bidderId) {
+    protected boolean checkBid(int bid, int bidderId) {
 
         // If the current winner is re-bidding then it's just to increase the current reserve bid
-        int outcome = BidAcceptableNotWinning;
         if (bidderId == winningBidder) {
             if (bid > topBid) {
                 topBid = bid;
-                outcome = BidWinning;
+                return true;
             }
-        } else {
 
+        } else {
             // Decide which minBidIncrement to use
             int currIncLimit = minInc1;
             if (bid >= incrementLimit) {
@@ -33,15 +32,12 @@ public class DualMinLot extends Lot {
 
             // An acceptable bid must exceed the current bid by the minimum increment or more.
             if (bid >= topBid + currIncLimit) {
-
-                outcome = BidWinning;
                 winningBidder = bidderId;
-
                 topBid = bid;
+                return true;
             }
-
         }
-        return outcome;
+        return false;
     }
 
     public int getIncrementLimit() {

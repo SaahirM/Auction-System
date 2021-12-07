@@ -113,12 +113,12 @@ class InputValidation {
 
         // Make bids with bad parameters.  Only one parameter is bad at a time.
         try {
-            assertEquals(0, bidder1.placeBidOn(lotList1.get(1), -1));
+            assertFalse(bidder1.placeBidOn(lotList1.get(1), -1));
         } catch (InputMismatchException e) {
             assertEquals("Trying to bid non-positive amount: -1", e.getMessage());
         }
         try {
-            assertEquals(0, bidder1.placeBidOn(lotList1.get(1), 0));
+            assertFalse(bidder1.placeBidOn(lotList1.get(1), 0));
         } catch (InputMismatchException e) {
             assertEquals("Trying to bid non-positive amount: 0", e.getMessage());
         }

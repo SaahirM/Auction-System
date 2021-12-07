@@ -177,8 +177,8 @@ public class TestHarness {
 
                 // Call the method
 
-                intOutcome = auctionSystem.placeBid( lotNumber, definedBidders.get( bidderNumber-1 ).getBidderId(), bid );
-                System.out.println(userCommand + " outcome " + intOutcome);
+                boolean outcome = auctionSystem.placeBid( lotNumber, definedBidders.get( bidderNumber-1 ).getBidderId(), bid );
+                System.out.println(userCommand + " outcome " + outcome);
             } else if (userCommand.equalsIgnoreCase(feesOwedCommand)) {
                 getEndingString(userInput);
 

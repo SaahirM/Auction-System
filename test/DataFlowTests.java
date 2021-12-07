@@ -23,17 +23,17 @@ class DataFlowTests {
         Lot lot2 = lots.get( 2 );
         Lot lot3 = lots.get( 3 );
 
-        assertEquals( 0,theBidder.placeBidOn(lot2, 5) );
+        assertFalse( theBidder.placeBidOn(lot2, 5) );
 
         // Open the auction then try a bid then that should succeed.
 
         assertTrue( theAuction.openAuction() );
-        assertEquals( 3,theBidder.placeBidOn(lot2, 10) );
+        assertTrue( theBidder.placeBidOn(lot2, 10) );
 
         // Close the auction then try a bid then that should fail.
 
         assertTrue( theAuction.closeAuction() );
-        assertEquals( 0,theBidder.placeBidOn(lot3, 10) );
+        assertFalse( theBidder.placeBidOn(lot3, 10) );
 
     }
 
@@ -130,17 +130,17 @@ class DataFlowTests {
 
         // Place some bids
         // setup
-        assertEquals(3, defaultBidder.placeBidOn(lots.get(1), 1));
-        assertEquals(3, defaultBidder.placeBidOn(lots.get(3), 15));
+        assertTrue(defaultBidder.placeBidOn(lots.get(1), 1));
+        assertTrue(defaultBidder.placeBidOn(lots.get(3), 15));
 
         // only regular lot will accept this
-        assertEquals(3, secondBidder.placeBidOn(lots.get(1), 2));
+        assertTrue(secondBidder.placeBidOn(lots.get(1), 2));
 
         // only reserve lot will reject this
-        assertEquals(2, secondBidder.placeBidOn(lots.get(2), 9));
+        assertFalse(secondBidder.placeBidOn(lots.get(2), 9));
 
         // only dualmin lot will reject this
-        assertEquals(2, secondBidder.placeBidOn(lots.get(3), 19));
+        assertFalse(secondBidder.placeBidOn(lots.get(3), 19));
     }
 
 }

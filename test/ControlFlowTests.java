@@ -76,13 +76,13 @@ class ControlFlowTests {
         Lot lot13 = lots.get( 13 );
         Lot lot14 = lots.get( 14 );
 
-        assertEquals( 3, bidder1.placeBidOn(lot12, 2) );
+        assertTrue(  bidder1.placeBidOn(lot12, 2) );
 
-        assertEquals( 3, bidder2.placeBidOn(lot13, 4) );
-        assertEquals( 3, bidder3.placeBidOn(lot13, 6) );
+        assertTrue(  bidder2.placeBidOn(lot13, 4) );
+        assertTrue(  bidder3.placeBidOn(lot13, 6) );
 
-        assertEquals( 3, bidder2.placeBidOn(lot14, 10) );
-        assertEquals( 2, bidder3.placeBidOn(lot14, 6) );
+        assertTrue(  bidder2.placeBidOn(lot14, 10) );
+        assertFalse(  bidder3.placeBidOn(lot14, 6) );
 
         // Check out the outcomes
 
@@ -136,36 +136,36 @@ class ControlFlowTests {
         // Set the bids as we'll expect.  Auctions 2 and 3 will get closed.  Auction 5 is never opened.
 
         // Win 0 closed, 1 open
-        assertEquals( 3,bidder2.placeBidOn(lotList1.get( 15 ), 2) );
+        assertTrue( bidder2.placeBidOn(lotList1.get( 15 ), 2) );
 
         // Win 1 closed, 0 open
 
-        assertEquals( 3,bidder3.placeBidOn(lotList2.get( 24 ), 2) );
+        assertTrue( bidder3.placeBidOn(lotList2.get( 24 ), 2) );
 
         // Win 1 closed, 1 open
 
-        assertEquals( 3,bidder4.placeBidOn(lotList2.get( 26 ), 2) );
-        assertEquals( 3,bidder4.placeBidOn(lotList1.get( 16 ), 2) );
+        assertTrue( bidder4.placeBidOn(lotList2.get( 26 ), 2) );
+        assertTrue( bidder4.placeBidOn(lotList1.get( 16 ), 2) );
 
         // Win many closed, 0 open
 
-        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 30 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 31 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 32 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 33 ), 2) );
-        assertEquals( 3,bidder5.placeBidOn(lotList3.get( 34 ), 2) );
+        assertTrue( bidder5.placeBidOn(lotList3.get( 30 ), 2) );
+        assertTrue( bidder5.placeBidOn(lotList3.get( 31 ), 2) );
+        assertTrue( bidder5.placeBidOn(lotList3.get( 32 ), 2) );
+        assertTrue( bidder5.placeBidOn(lotList3.get( 33 ), 2) );
+        assertTrue( bidder5.placeBidOn(lotList3.get( 34 ), 2) );
 
         // Win many closed, many open
 
-        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 35 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 36 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 37 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList3.get( 38 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 42 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 43 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 44 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 45 ), 2) );
-        assertEquals( 3,bidder6.placeBidOn(lotList4.get( 46 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList3.get( 35 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList3.get( 36 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList3.get( 37 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList3.get( 38 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList4.get( 42 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList4.get( 43 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList4.get( 44 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList4.get( 45 ), 2) );
+        assertTrue( bidder6.placeBidOn(lotList4.get( 46 ), 2) );
 
         // Close off the relevant auctions
 

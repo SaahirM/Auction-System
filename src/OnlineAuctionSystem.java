@@ -91,7 +91,7 @@ public class OnlineAuctionSystem {
         return status.toString();
     }
 
-    public int placeBid( int lotNumber, int bidderId, int bid ) {
+    public boolean placeBid( int lotNumber, int bidderId, int bid ) {
         if (bidderId < 0 || lotNumber < 0) {
             throw new InputMismatchException("Negative input: " +
                     "\nBidder ID: " + bidderId +
