@@ -1,5 +1,9 @@
 import java.util.InputMismatchException;
 
+/**
+ * @author Saahir Monowar
+ * Desc: A lot object, which stores bid information
+ */
 public class Lot {
     // Type of lot (so it is not confused with its subclasses)
     public final static int lotType = 0;

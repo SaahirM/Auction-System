@@ -2,6 +2,10 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 
+/**
+ * @author Saahir Monowar
+ * Desc: An auction object to store lots and context surrounding itself
+ */
 public class Auction {
 
     // Constants used by this class

@@ -1,3 +1,8 @@
+/**
+ * @author Saahir Monowar
+ * Desc: A specific type of lot with different min-bid-increments for different
+ *       bid values
+ */
 public class DualMinLot extends Lot {
     private final int incrementLimit;
     private final int minInc1;

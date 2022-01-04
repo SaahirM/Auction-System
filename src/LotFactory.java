@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
+/**
+ * @author Saahir Monowar
+ * Desc: Creates and stores all lots, enforcing unique lot-numbers
+ */
 public class LotFactory {
     HashMap<Integer, Lot> allLots;
 

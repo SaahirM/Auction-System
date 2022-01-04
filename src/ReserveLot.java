@@ -1,3 +1,8 @@
+/**
+ * @author Saahir Monowar
+ * Desc: A specific type of lot with a single reserve-value instead of a
+ *       min-bid-increment for every bid
+ */
 public class ReserveLot extends Lot{
     private int reserveValue;
 

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+/**
+ * @author Saahir Monowar
+ * Desc: An entity with the ability to place bids
+ */
 public class Bidder {
     // Context about this bidder
     private final int bidderNumber;

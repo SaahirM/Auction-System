@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
+/**
+ * @author Saahir Monowar
+ * Desc: Class to manipulate the entire auction system
+ */
 public class OnlineAuctionSystem {
     // The state of all the context for the auction system
     private final ArrayList<Auction> auctions;  // all the auctions
